@@ -1,4 +1,4 @@
-; Fri Sep 25 10:36:08 CEST 2026
+; Thu Oct 01 10:37:21 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -7,3 +7,39 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract))
+
+(defclass Personaje "Engloba todos los tipos de personajes que puede haber en la mitología griega. Extraído del enunciado del proyecto de practicas."
+	(is-a USER)
+	(role abstract))
+
+(defclass Humano "Representación de un personaje humano o mortal. Extraído del enunciado del proyecto de practicas."
+	(is-a Personaje)
+	(role concrete))
+
+(defclass Dios "Representación de un personaje inmortal y poderoso. Extraído del enunciado del proyecto de practicas."
+	(is-a Personaje)
+	(role concrete))
+
+(defclass Semidios "Representación de un personaje nacido de la unión entre un Dios y un Humano. Extraído del enunciado del proyecto de practicas."
+	(is-a Personaje)
+	(role concrete))
+
+(defclass Heroe "Representación de un personaje intermedio entre un Humano y un Dios, caracterizado por realizar hazañas extraordinarias y buscar la gloria inmortal. Extraído de Gemini."
+	(is-a Personaje)
+	(role concrete))
+
+(defclass Criatura "Representación de un personaje fantástico, híbrido o monstruoso. Extraído del enunciado de la práctica."
+	(is-a Personaje)
+	(role concrete))
+
+(defclass Objeto "Representa un artilugio relevante para el desarrollo de los mitos."
+	(is-a USER)
+	(role concrete))
+
+(defclass Capacidad "Representa un poder o habilidad relevante para el desarrollo del mito. No se modela cada una de las subcapacidades concretas, sino que se modelan como atributo de Capacidad."
+	(is-a USER)
+	(role concrete))
+
+(defclass Ubicacion "Representa la localización de una entidad como un Personaje o un Objeto."
+	(is-a USER)
+	(role concrete))
