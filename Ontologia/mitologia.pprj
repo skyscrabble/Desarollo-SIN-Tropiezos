@@ -1,4 +1,4 @@
-; Thu Oct 01 10:37:21 CEST 2026
+; Wed Oct 07 16:21:17 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,9 +20,9 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[mitologia_ProjectKB_Class81]
-		[mitologia_ProjectKB_Class82]
-		[mitologia_ProjectKB_Class83]))
+		[mitologia_ProjectKB_Class84]
+		[mitologia_ProjectKB_Class85]
+		[mitologia_ProjectKB_Class86]))
 
 ([CLSES_TAB] of  Widget
 
@@ -163,7 +163,7 @@
 ([KB_203218_Class99] of  Property_List
 )
 
-([KB_660636_Class0] of  Map
+([KB_473144_Class0] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -529,17 +529,17 @@
 ([mitologia_ProjectKB_Class80] of  Property_List
 )
 
-([mitologia_ProjectKB_Class81] of  String
+([mitologia_ProjectKB_Class84] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([mitologia_ProjectKB_Class82] of  String
+([mitologia_ProjectKB_Class85] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([mitologia_ProjectKB_Class83] of  String
+([mitologia_ProjectKB_Class86] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
