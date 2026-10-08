@@ -1,0 +1,8 @@
+# Archivos compilados
+*.class
+/bin/
+/target/
+
+# Metadatos locales del Workspace de Eclipse (no del proyecto)
+.metadata/
+.recommenders/
