@@ -1,4 +1,25 @@
-; Wed Oct 07 16:21:17 CEST 2026
+; Thu Oct 08 10:54:35 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
+
+([mitologia_Class0] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda tener el valor del atributo estado_vida == vivo y estado_vida == muerto. Aunque el slot esté especificado como Symbol con esos valores, se añade la restricción por consistencia.")
+	(%3APAL-NAME "NadieVivoYMuerto")
+	(%3APAL-RANGE "(defrange ?p :FRAME Personaje)")
+	(%3APAL-STATEMENT "(forall ?p\n        (not (and (= (estado_vida ?p) vivo)\n                  (= (estado_vida ?p) muerto)))\n)"))
+
+([mitologia_Class1] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda tenerse a sí mismo en el valor de su slot es_padre_o_madre.")
+	(%3APAL-NAME "NadieEsSuPropioPadreOMadre")
+	(%3APAL-RANGE "(defrange ?p :FRAME Personaje)")
+	(%3APAL-STATEMENT "(forall ?p\n        (not (= (es_padre_o_madre ?p) ?p))\n)"))
+
+([mitologia_Class3] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda matar a otro si, para cualquiera de ellos su estado_vida == muerto.")
+	(%3APAL-NAME "AmbosPersonajesVivosParaMatar")
+	(%3APAL-RANGE "(defrange ?accion :FRAME Matar)")
+	(%3APAL-STATEMENT "(forall ?accion\n        (=> (and (own-slot-not-null sujeto ?accion)\n                 (own-slot-not-null destino ?accion))\n            (and (= (estado_vida (sujeto ?accion)) vivo)\n                 (= (estado_vida (destino ?accion)) vivo))\n        )\n)"))

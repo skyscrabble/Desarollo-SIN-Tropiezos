@@ -1,4 +1,4 @@
-; Wed Oct 07 16:21:17 CEST 2026
+; Thu Oct 08 10:54:35 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,12 +20,13 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[mitologia_ProjectKB_Class84]
-		[mitologia_ProjectKB_Class85]
-		[mitologia_ProjectKB_Class86]))
+		[mitologia_ProjectKB_Class10110]
+		[mitologia_ProjectKB_Class10111]
+		[mitologia_ProjectKB_Class10112]))
 
 ([CLSES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.ClsesTab"))
 
 ([CREATION_TIMESTAMP_WIDGET] of  Widget
@@ -38,6 +39,7 @@
 
 ([FORMS_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.FormsTab"))
 
 ([INSTANCE_ANNOTATION_FORM_WIDGET] of  Widget
@@ -61,6 +63,7 @@
 
 ([INSTANCES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
 ([KB_203218_Class0] of  String
@@ -69,7 +72,11 @@
 	(string_value "edu.stanford.smi.protege.storage.clips.ClipsKnowledgeBaseFactory"))
 
 ([KB_203218_Class1] of  Map
-)
+
+	(entries
+		[mitologia_ProjectKB_Class10113]
+		[mitologia_ProjectKB_Class10114]
+		[mitologia_ProjectKB_Class10115]))
 
 ([KB_203218_Class100] of  Property_List
 )
@@ -163,7 +170,7 @@
 ([KB_203218_Class99] of  Property_List
 )
 
-([KB_473144_Class0] of  Map
+([KB_500702_Class0] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -178,6 +185,54 @@
 	(widget_class_name "TGViztab.TGVizTab"))
 
 ([mitologia_ProjectKB_Class10] of  Property_List
+)
+
+([mitologia_ProjectKB_Class100] of  Property_List
+)
+
+([mitologia_ProjectKB_Class101] of  Property_List
+)
+
+([mitologia_ProjectKB_Class10110] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([mitologia_ProjectKB_Class10111] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([mitologia_ProjectKB_Class10112] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([mitologia_ProjectKB_Class10113] of  Map_Entry
+
+	(key "suppress_instance_counting")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([mitologia_ProjectKB_Class10114] of  Map_Entry
+
+	(key "change_tracking_active")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([mitologia_ProjectKB_Class10115] of  Map_Entry
+
+	(key "add_name_on_instance_form")
+	(key_class "java.lang.String")
+	(value "false")
+	(value_class "java.lang.String"))
+
+([mitologia_ProjectKB_Class102] of  Property_List
+)
+
+([mitologia_ProjectKB_Class103] of  Property_List
 )
 
 ([mitologia_ProjectKB_Class107] of  String
@@ -321,7 +376,7 @@
 
 ([mitologia_ProjectKB_Class39] of  Widget
 
-	(is_hidden TRUE)
+	(is_hidden FALSE)
 	(property_list [mitologia_ProjectKB_Class40])
 	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
 
@@ -329,7 +384,11 @@
 )
 
 ([mitologia_ProjectKB_Class40] of  Property_List
-)
+
+	(properties
+		[mitologia_ProjectKB_Class96]
+		[mitologia_ProjectKB_Class97]
+		[mitologia_ProjectKB_Class98]))
 
 ([mitologia_ProjectKB_Class41] of  Widget
 
@@ -529,26 +588,30 @@
 ([mitologia_ProjectKB_Class80] of  Property_List
 )
 
-([mitologia_ProjectKB_Class84] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([mitologia_ProjectKB_Class85] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([mitologia_ProjectKB_Class86] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
 ([mitologia_ProjectKB_Class9] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [mitologia_ProjectKB_Class10])
 	(widget_class_name "edu.stanford.smi.protegex.evaluation.MetaAnalysis"))
+
+([mitologia_ProjectKB_Class96] of  Integer
+
+	(integer_value 456)
+	(name "PAL_TAB_DIVIDER_LOCATION"))
+
+([mitologia_ProjectKB_Class97] of  Integer
+
+	(integer_value 469)
+	(name "CONSTRAINT_CONTROL_PANEL_TOP_DIVIDER_LOCATION"))
+
+([mitologia_ProjectKB_Class98] of  Integer
+
+	(integer_value 469)
+	(name "CONSTRAINT_CONTROL_PANEL_BOTTOM_DIVIDER_LOCATION"))
+
+([mitologia_ProjectKB_Class99] of  Property_List
+
+	(name "layout properties"))
 
 ([option_instance] of  Options
 
@@ -557,6 +620,7 @@
 	(display_hidden_classes TRUE)
 	(display_multi_parent_class_icon TRUE)
 	(is_readonly FALSE)
+	(tabbed_instance_form_layout FALSE)
 	(undo_enabled TRUE)
 	(update_modification_slots FALSE))
 
@@ -566,6 +630,7 @@
 	(is_hidden FALSE)
 	(label "Description")
 	(name ":PAL-DESCRIPTION")
+	(property_list [mitologia_ProjectKB_Class101])
 	(widget_class_name "edu.stanford.smi.protege.widget.TextAreaWidget")
 	(width 250)
 	(x 275)
@@ -588,6 +653,7 @@
 	(is_hidden FALSE)
 	(label "Name")
 	(name ":PAL-NAME")
+	(property_list [mitologia_ProjectKB_Class100])
 	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
 	(width 275)
 	(x 0)
@@ -599,7 +665,8 @@
 		[PAL_NAME_WIDGET]
 		[PAL_RANGE_WIDGET]
 		[PAL_DESCRIPTION_WIDGET]
-		[PAL_STATEMENT_WIDGET]))
+		[PAL_STATEMENT_WIDGET]
+		[mitologia_ProjectKB_Class99]))
 
 ([PAL_RANGE_WIDGET] of  Widget
 
@@ -607,6 +674,7 @@
 	(is_hidden FALSE)
 	(label "Range")
 	(name ":PAL-RANGE")
+	(property_list [mitologia_ProjectKB_Class102])
 	(widget_class_name "edu.stanford.smi.protegex.widget.pal.constraint.PalRangeWidget")
 	(width 250)
 	(x 275)
@@ -618,6 +686,7 @@
 	(is_hidden FALSE)
 	(label "Statement")
 	(name ":PAL-STATEMENT")
+	(property_list [mitologia_ProjectKB_Class103])
 	(widget_class_name "edu.stanford.smi.protegex.widget.pal.constraint.PalConstraintWidget")
 	(width 275)
 	(x 0)
@@ -636,6 +705,7 @@
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
 	(default_slot_metaclass ":STANDARD-SLOT")
+	(journaling_enabled FALSE)
 	(next_frame_number 0)
 	(options [option_instance])
 	(property_map [KB_203218_Class1])
@@ -645,15 +715,57 @@
 		[SLOTS_TAB]
 		[FORMS_TAB]
 		[INSTANCES_TAB]
-		[QUERIES_TAB]))
+		[QUERIES_TAB]
+		[mitologia_ProjectKB_Class65]
+		[mitologia_ProjectKB_Class55]
+		[mitologia_ProjectKB_Class17]
+		[mitologia_ProjectKB_Class7]
+		[mitologia_ProjectKB_Class53]
+		[mitologia_ProjectKB_Class59]
+		[mitologia_ProjectKB_Class25]
+		[mitologia_ProjectKB_Class43]
+		[mitologia_ProjectKB_Class49]
+		[mitologia_ProjectKB_Class47]
+		[mitologia_ProjectKB_Class33]
+		[mitologia_ProjectKB_Class41]
+		[mitologia_ProjectKB_Class51]
+		[mitologia_ProjectKB_Class9]
+		[mitologia_ProjectKB_Class3]
+		[mitologia_ProjectKB_Class75]
+		[mitologia_ProjectKB_Class19]
+		[mitologia_ProjectKB_Class39]
+		[mitologia_ProjectKB_Class31]
+		[mitologia_ProjectKB_Class37]
+		[mitologia_ProjectKB_Class5]
+		[mitologia_ProjectKB_Class11]
+		[mitologia_ProjectKB_Class1]
+		[mitologia_ProjectKB_Class71]
+		[mitologia_ProjectKB_Class29]
+		[mitologia_ProjectKB_Class63]
+		[mitologia_ProjectKB_Class27]
+		[mitologia_ProjectKB_Class45]
+		[mitologia_ProjectKB_Class69]
+		[mitologia_ProjectKB_Class21]
+		[mitologia_ProjectKB_Class77]
+		[mitologia_ProjectKB_Class61]
+		[mitologia_ProjectKB_Class57]
+		[mitologia_ProjectKB_Class15]
+		[mitologia_ProjectKB_Class35]
+		[mitologia_ProjectKB_Class79]
+		[mitologia_ProjectKB_Class67]
+		[mitologia_ProjectKB_Class23]
+		[mitologia_ProjectKB_Class73]
+		[mitologia_ProjectKB_Class13]))
 
 ([QUERIES_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(property_list [KB_203218_Class104])
 	(widget_class_name "edu.stanford.smi.protegex.queries_tab.QueriesTab"))
 
 ([SLOTS_TAB] of  Widget
 
+	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.SlotsTab"))
 
 ([SOURCES] of  Property_List

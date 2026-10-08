@@ -1,4 +1,4 @@
-; Wed Oct 07 16:21:17 CEST 2026
+; Thu Oct 08 10:54:35 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -7,23 +7,24 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
+	(single-slot estado_vida
+;+		(comment "Propiedad que indica el estado vital actual de la entidad (vivo o muerto)")
+		(type SYMBOL)
+		(allowed-values vivo muerto)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(multislot tiene_capacidad
-;+		(comment "Relación que asocia a un personaje con una o varias habilidades especiales activas.")
+;+		(comment "Relación que asocia a un Personaje con una o varias habilidades especiales activas.")
 		(type INSTANCE)
 ;+		(allowed-classes Capacidad)
 		(create-accessor read-write))
-	(single-slot estado_vida
-;+		(comment "Propiedad que indica el estado vital actual de la entidad (Vivo o Muerto)")
-		(type SYMBOL)
-		(allowed-values Vivo Muerto)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(multislot tiene_favor
+;+		(comment "Relación que representa que un Personaje cuenta con la simpatía, bendición o ayuda de uno o varios Dioses.")
 		(type INSTANCE)
 ;+		(allowed-classes Dios)
 		(create-accessor read-write))
 	(multislot posee_objeto
-;+		(comment "Relación de posesión física actual de un personaje hacia uno o varios objetos")
+;+		(comment "Relación de posesión física actual de un personaje hacia ninguno, uno o varios objetos.")
 		(type INSTANCE)
 ;+		(allowed-classes Objeto)
 		(create-accessor read-write))
@@ -31,25 +32,42 @@
 ;+		(comment "Propiedad que determina si un personaje goza de libre movimiento o se encuentra apresado.")
 		(type SYMBOL)
 		(allowed-values libre preso)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot tiene_enojo
+;+		(comment "Relación que representa que un Personaje está furioso o enemistado con otro u otros.")
+		(type INSTANCE)
+;+		(allowed-classes Personaje)
+		(create-accessor read-write))
+	(multislot es_hijo_o_hija
+		(type INSTANCE)
+;+		(allowed-classes Personaje)
+		(cardinality 0 2)
+;+		(inverse-slot es_padre_o_madre)
+		(create-accessor read-write))
+	(multislot es_padre_o_madre
+;+		(comment "Representa una relación de parentesco entre instancias de Personaje.")
+		(type INSTANCE)
+;+		(allowed-classes Personaje)
+;+		(inverse-slot es_hijo_o_hija)
 		(create-accessor read-write))
 	(single-slot ubicacion_actual
-;+		(comment "Relación que vincula a un personaje u objeto con el lugar físico donde se encuentra en este momento.")
+;+		(comment "Relación que vincula a un Personaje u Objeto con el lugar físico donde se encuentra en este momento.")
 		(type INSTANCE)
 ;+		(allowed-classes Ubicacion)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot destino
-;+		(comment "Personaje, criatura u objeto sobre el que recae la acción o hacia el que va dirigida la relación.")
+	(multislot destino
+;+		(comment "Personaje u Objeto hacia el que va dirigida la relación.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje Objeto)
-;+		(cardinality 0 1)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
-	(single-slot sujeto
-;+		(comment "Personaje o entidad principal que ejecuta la acción, siente la relación o posee el vínculo.")
+	(multislot sujeto
+;+		(comment "Personaje o entidad principal que inicia la relación o posee el vínculo.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
-;+		(cardinality 0 1)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot nombre
 ;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
@@ -60,53 +78,69 @@
 (defclass Personaje "Engloba todos los tipos de personajes que puede haber en la mitología griega. Extraído del enunciado del proyecto de practicas."
 	(is-a USER)
 	(role abstract)
+	(multislot es_hijo_o_hija
+		(type INSTANCE)
+;+		(allowed-classes Personaje)
+		(cardinality 0 2)
+		(create-accessor read-write))
+	(multislot es_padre_o_madre
+;+		(comment "Representa una relación de parentesco entre instancias de Personaje.")
+		(type INSTANCE)
+;+		(allowed-classes Personaje)
+		(create-accessor read-write))
 	(multislot tiene_favor
+;+		(comment "Relación que representa que un Personaje cuenta con la simpatía, bendición o ayuda de uno o varios Dioses.")
 		(type INSTANCE)
 ;+		(allowed-classes Dios)
 		(create-accessor read-write))
 	(multislot posee_objeto
-;+		(comment "Relación de posesión física actual de un personaje hacia uno o varios objetos")
+;+		(comment "Relación de posesión física actual de un personaje hacia ninguno, uno o varios objetos.")
 		(type INSTANCE)
 ;+		(allowed-classes Objeto)
-		(create-accessor read-write))
-	(single-slot estado_libertad
-;+		(comment "Propiedad que determina si un personaje goza de libre movimiento o se encuentra apresado.")
-		(type SYMBOL)
-		(allowed-values libre preso)
-;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot nombre
 ;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot estado_libertad
+;+		(comment "Propiedad que determina si un personaje goza de libre movimiento o se encuentra apresado.")
+		(type SYMBOL)
+		(allowed-values libre preso)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot ubicacion_actual
-;+		(comment "Relación que vincula a un personaje u objeto con el lugar físico donde se encuentra en este momento.")
+;+		(comment "Relación que vincula a un Personaje u Objeto con el lugar físico donde se encuentra en este momento.")
 		(type INSTANCE)
 ;+		(allowed-classes Ubicacion)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot tiene_capacidad
-;+		(comment "Relación que asocia a un personaje con una o varias habilidades especiales activas.")
+	(multislot tiene_enojo
+;+		(comment "Relación que representa que un Personaje está furioso o enemistado con otro u otros.")
 		(type INSTANCE)
-;+		(allowed-classes Capacidad)
+;+		(allowed-classes Personaje)
 		(create-accessor read-write))
 	(single-slot estado_vida
-;+		(comment "Propiedad que indica el estado vital actual de la entidad (Vivo o Muerto)")
+;+		(comment "Propiedad que indica el estado vital actual de la entidad (vivo o muerto)")
 		(type SYMBOL)
-		(allowed-values Vivo Muerto)
-;+		(cardinality 0 1)
+		(allowed-values vivo muerto)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot tiene_capacidad
+;+		(comment "Relación que asocia a un Personaje con una o varias habilidades especiales activas.")
+		(type INSTANCE)
+;+		(allowed-classes Capacidad)
 		(create-accessor read-write)))
 
 (defclass Humano "Representación de un personaje humano o mortal. Extraído del enunciado del proyecto de practicas."
 	(is-a Personaje)
 	(role concrete))
 
-(defclass Dios "Representación de un personaje inmortal y poderoso. Extraído del enunciado del proyecto de practicas."
+(defclass Semidios "Representación de un personaje nacido de la unión entre un Dios y un Humano. Extraído del enunciado del proyecto de practicas."
 	(is-a Personaje)
 	(role concrete))
 
-(defclass Semidios "Representación de un personaje nacido de la unión entre un Dios y un Humano. Extraído del enunciado del proyecto de practicas."
+(defclass Dios "Representación de un personaje inmortal y poderoso. Extraído del enunciado del proyecto de practicas."
 	(is-a Personaje)
 	(role concrete))
 
@@ -124,6 +158,12 @@
 	(single-slot nombre
 ;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
 		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot ubicacion_actual
+;+		(comment "Relación que vincula a un Personaje u Objeto con el lugar físico donde se encuentra en este momento.")
+		(type INSTANCE)
+;+		(allowed-classes Ubicacion)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -145,20 +185,20 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass Accion "Superclase que representa un evento dinámico o suceso ejecutado por un personaje durante el transcurso del mito."
+(defclass Accion "Superclase que representa un evento dinámico o suceso ejecutado por un Personaje durante el transcurso del mito, que puede involucrar a otro Personaje u Objeto."
 	(is-a USER)
-	(role concrete)
-	(single-slot destino
-;+		(comment "Personaje, criatura u objeto sobre el que recae la acción o hacia el que va dirigida la relación.")
+	(role abstract)
+	(multislot destino
+;+		(comment "Personaje u Objeto hacia el que va dirigida la relación.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje Objeto)
-;+		(cardinality 0 1)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
-	(single-slot sujeto
-;+		(comment "Personaje o entidad principal que ejecuta la acción, siente la relación o posee el vínculo.")
+	(multislot sujeto
+;+		(comment "Personaje o entidad principal que inicia la relación o posee el vínculo.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
-;+		(cardinality 0 1)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write)))
 
 (defclass Apresar "Acción mediante la cual una criatura o personaje captura y priva de libertad a otro."
@@ -179,36 +219,4 @@
 
 (defclass Localizar "Acción de encontrar la ubicación exacta de un personaje, objeto o criatura para poder interactuar con él."
 	(is-a Accion)
-	(role concrete))
-
-(defclass Relacion "Superclase que define un vínculo, estatus social o estado emocional duradero entre dos entidades mitológicas."
-	(is-a USER)
-	(role concrete)
-	(single-slot destino
-;+		(comment "Personaje, criatura u objeto sobre el que recae la acción o hacia el que va dirigida la relación.")
-		(type INSTANCE)
-;+		(allowed-classes Personaje Objeto)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot sujeto
-;+		(comment "Personaje o entidad principal que ejecuta la acción, siente la relación o posee el vínculo.")
-		(type INSTANCE)
-;+		(allowed-classes Personaje)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Enojo "Relación negativa que indica que un personaje (generalmente un Dios) está furioso o enemistado con otro."
-	(is-a Relacion)
-	(role concrete))
-
-(defclass Favor "Relación positiva que indica que un personaje cuenta con la simpatía, bendición o ayuda de un Dios."
-	(is-a Relacion)
-	(role concrete))
-
-(defclass Parentesco "Vínculo de sangre o familiar directo entre dos personajes."
-	(is-a Relacion)
-	(role concrete))
-
-(defclass Pertenencia "Vínculo que relaciona a un personaje como dueño legítimo de un objeto concreto."
-	(is-a Relacion)
 	(role concrete))
