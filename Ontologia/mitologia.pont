@@ -1,4 +1,4 @@
-; Thu Oct 08 10:54:35 CEST 2026
+; Tue Oct 20 13:05:37 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -40,6 +40,7 @@
 ;+		(allowed-classes Personaje)
 		(create-accessor read-write))
 	(multislot es_hijo_o_hija
+;+		(comment "Representa una relación inversa de parentesco entre instancias de Personaje.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
 		(cardinality 0 2)
@@ -70,15 +71,21 @@
 		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot otorga_capacidad
+;+		(comment "Capacidad que entrega la posesión de un objeto.")
+		(type INSTANCE)
+;+		(allowed-classes Capacidad)
 		(create-accessor read-write)))
 
 (defclass Personaje "Engloba todos los tipos de personajes que puede haber en la mitología griega. Extraído del enunciado del proyecto de practicas."
 	(is-a USER)
 	(role abstract)
 	(multislot es_hijo_o_hija
+;+		(comment "Representa una relación inversa de parentesco entre instancias de Personaje.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
 		(cardinality 0 2)
@@ -99,7 +106,7 @@
 ;+		(allowed-classes Objeto)
 		(create-accessor read-write))
 	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
@@ -156,9 +163,14 @@
 	(is-a USER)
 	(role concrete)
 	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot otorga_capacidad
+;+		(comment "Capacidad que entrega la posesión de un objeto.")
+		(type INSTANCE)
+;+		(allowed-classes Capacidad)
 		(create-accessor read-write))
 	(single-slot ubicacion_actual
 ;+		(comment "Relación que vincula a un Personaje u Objeto con el lugar físico donde se encuentra en este momento.")
@@ -171,7 +183,7 @@
 	(is-a USER)
 	(role concrete)
 	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
@@ -180,7 +192,7 @@
 	(is-a USER)
 	(role concrete)
 	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento o personaje de la ontología.")
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
 		(type STRING)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
@@ -188,6 +200,11 @@
 (defclass Accion "Superclase que representa un evento dinámico o suceso ejecutado por un Personaje durante el transcurso del mito, que puede involucrar a otro Personaje u Objeto."
 	(is-a USER)
 	(role abstract)
+	(single-slot nombre
+;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(multislot destino
 ;+		(comment "Personaje u Objeto hacia el que va dirigida la relación.")
 		(type INSTANCE)
