@@ -1,4 +1,227 @@
-; Wed Oct 07 16:21:17 CEST 2026
+; Tue Oct 20 13:05:37 CEST 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
+
+([mitologia_Class0] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda tener el valor del atributo estado_vida == vivo y estado_vida == muerto. Aunque el slot esté especificado como Symbol con esos valores, se añade la restricción por consistencia.")
+	(%3APAL-NAME "NadieVivoYMuerto")
+	(%3APAL-RANGE "(defrange ?p :FRAME Personaje)")
+	(%3APAL-STATEMENT "(forall ?p\n        (not (and (= (estado_vida ?p) vivo)\n                  (= (estado_vida ?p) muerto)))\n)"))
+
+([mitologia_Class1] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda tenerse a sí mismo en el valor de su slot es_padre_o_madre.")
+	(%3APAL-NAME "NadieEsSuPropioPadreOMadre")
+	(%3APAL-RANGE "(defrange ?p :FRAME Personaje)")
+	(%3APAL-STATEMENT "(forall ?p\n        (not (= (es_padre_o_madre ?p) ?p))\n)"))
+
+([mitologia_Class10000] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Poseidon"))
+
+([mitologia_Class10001] of  Humano
+
+	(es_padre_o_madre [mitologia_Class10005])
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Casiopea")
+	(tiene_enojo [mitologia_Class10000]))
+
+([mitologia_Class10002] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Atenea")
+	(posee_objeto [mitologia_Class20010]))
+
+([mitologia_Class10003] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Hermes")
+	(posee_objeto [mitologia_Class20020]))
+
+([mitologia_Class10004] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Hefesto")
+	(posee_objeto [mitologia_Class10010]))
+
+([mitologia_Class10005] of  Humano
+
+	(es_hijo_o_hija [mitologia_Class10001])
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Andromeda"))
+
+([mitologia_Class10006] of  Semidios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Perseo")
+	(tiene_capacidad [mitologia_Class20006])
+	(tiene_favor
+		[mitologia_Class10002]
+		[mitologia_Class10003]
+		[mitologia_Class10004]))
+
+([mitologia_Class10007] of  Criatura
+
+	(estado_libertad preso)
+	(estado_vida vivo)
+	(nombre "Ceto"))
+
+([mitologia_Class10008] of  Criatura
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Grayas")
+	(posee_objeto [mitologia_Class20021]))
+
+([mitologia_Class10009] of  Criatura
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Ninfas")
+	(posee_objeto
+		[mitologia_Class10012]
+		[mitologia_Class20009]))
+
+([mitologia_Class10010] of  Objeto
+
+	(nombre "Brida de Oro"))
+
+([mitologia_Class10011] of  Objeto
+
+	(nombre "Escudo Espejo")
+	(otorga_capacidad [mitologia_Class20014]))
+
+([mitologia_Class10012] of  Objeto
+
+	(nombre "Sandalias Aladas")
+	(otorga_capacidad [mitologia_Class20013]))
+
+([mitologia_Class10013] of  Objeto
+
+	(nombre "Cabeza de Ceto"))
+
+([mitologia_Class20000] of  Localizar
+
+	(destino [mitologia_Class10008])
+	(nombre "PerseoLocalizaGrayas")
+	(sujeto [mitologia_Class10006]))
+
+([mitologia_Class20001] of  Matar
+
+	(destino [mitologia_Class10007])
+	(nombre "PerseoMataCeto")
+	(sujeto [mitologia_Class10006]))
+
+([mitologia_Class20002] of  Liberar
+
+	(destino [mitologia_Class10005])
+	(nombre "PerseoLiberaAndromeda")
+	(sujeto [mitologia_Class10006]))
+
+([mitologia_Class20003] of  Apresar
+
+	(destino [mitologia_Class10005])
+	(nombre "CetoApresaAndromeda")
+	(sujeto [mitologia_Class10007]))
+
+([mitologia_Class20004] of  Intercambiar
+
+	(destino [mitologia_Class10008])
+	(nombre "IntercambioOjo")
+	(sujeto [mitologia_Class10006]))
+
+([mitologia_Class20005] of  Heroe
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Heracles"))
+
+([mitologia_Class20006] of  Capacidad
+
+	(nombre "Invisibilidad"))
+
+([mitologia_Class20007] of  Ubicacion
+
+	(nombre "Laberinto del Minotauro"))
+
+([mitologia_Class20008] of  Criatura
+
+	(estado_libertad preso)
+	(estado_vida vivo)
+	(nombre "Minotauro")
+	(ubicacion_actual [mitologia_Class20007]))
+
+([mitologia_Class20009] of  Objeto
+
+	(nombre "Zurron Magico"))
+
+([mitologia_Class20010] of  Objeto
+
+	(nombre "Escudo de Bronce"))
+
+([mitologia_Class20011] of  Objeto
+
+	(nombre "Yelmo de Hades")
+	(otorga_capacidad [mitologia_Class20006]))
+
+([mitologia_Class20012] of  Criatura
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Medusa"))
+
+([mitologia_Class20013] of  Capacidad
+
+	(nombre "Vuelo"))
+
+([mitologia_Class20014] of  Capacidad
+
+	(nombre "Espejo"))
+
+([mitologia_Class20017] of  Criatura
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Pegaso"))
+
+([mitologia_Class20018] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Hades")
+	(posee_objeto [mitologia_Class20011]))
+
+([mitologia_Class20019] of  Dios
+
+	(estado_libertad libre)
+	(estado_vida vivo)
+	(nombre "Zeus"))
+
+([mitologia_Class20020] of  Objeto
+
+	(nombre "Hoz de Acero"))
+
+([mitologia_Class20021] of  Objeto
+
+	(nombre "Ojo de las Grayas"))
+
+([mitologia_Class20022] of  Objeto
+
+	(nombre "Cabeza de Medusa"))
+
+([mitologia_Class3] of  %3APAL-CONSTRAINT
+
+	(%3APAL-DESCRIPTION "Restringe que ningún Personaje pueda matar a otro si, para cualquiera de ellos su estado_vida == muerto.")
+	(%3APAL-NAME "AmbosPersonajesVivosParaMatar")
+	(%3APAL-RANGE "(defrange ?accion :FRAME Matar)")
+	(%3APAL-STATEMENT "(forall ?accion\n        (=> (and (own-slot-not-null sujeto ?accion)\n                 (own-slot-not-null destino ?accion))\n            (and (= (estado_vida (sujeto ?accion)) vivo)\n                 (= (estado_vida (destino ?accion)) vivo))\n        )\n)"))
