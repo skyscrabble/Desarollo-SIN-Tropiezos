@@ -1,0 +1,17 @@
+# Los tres heroes intentan conseguir las tres cabezas.
+PREGUNTA OBJETO Perseo Cabeza_de_Minotauro
+FAVOR Perseo Atenea
+FAVOR Perseo Hermes
+FAVOR Perseo Hefesto
+FAVOR Perseo Hades
+FAVOR Teseo Atenea
+FAVOR Teseo Hermes
+FAVOR Teseo Hefesto
+FAVOR Teseo Hades
+FAVOR Heracles Atenea
+FAVOR Heracles Hermes
+FAVOR Heracles Hefesto
+FAVOR Heracles Hades
+ENOJO Casiopea Poseidon
+LOCALIZA Teseo Minotauro
+LOCALIZA Heracles Minotauro

@@ -1,0 +1,5 @@
+# Ariadna libera a Teseo del Minotauro.
+PREGUNTA LIBERAR Ariadna Teseo
+APRESADO Teseo Minotauro
+CAPACIDAD Ariadna Fuerza
+LOCALIZA Ariadna Minotauro

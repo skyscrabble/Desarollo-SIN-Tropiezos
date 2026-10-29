@@ -1,7 +1,13 @@
 package clases;
 
 public class Objeto {
-	public String nombre;
-	public Capacidad otorga_capacidad;
-	public Ubicacion ubicacion_actual;
+    public String nombre;
+    public Ubicacion ubicacion_actual;
+
+    public Objeto() {
+    }
+
+    public Objeto(String nombre) {
+        this.nombre = nombre;
+    }
 }

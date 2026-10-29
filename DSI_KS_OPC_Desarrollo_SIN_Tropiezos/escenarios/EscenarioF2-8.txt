@@ -1,0 +1,3 @@
+# Escenario libre de ejemplo: Heracles intenta obtener la capacidad Vuelo.
+PREGUNTA CAPACIDAD Heracles Vuelo
+POSEE Heracles Alas_Icaro

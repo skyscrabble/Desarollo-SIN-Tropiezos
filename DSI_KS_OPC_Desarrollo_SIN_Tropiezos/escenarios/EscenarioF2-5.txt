@@ -1,0 +1,10 @@
+# Perseo empieza apresado por el Minotauro y Heracles lo libera.
+PREGUNTA LIBERAR Perseo Andromeda
+APRESADO Perseo Minotauro
+POSEE Perseo Hilo_Ariadna
+LOCALIZA Heracles Minotauro
+FAVOR Perseo Atenea
+FAVOR Perseo Hermes
+FAVOR Perseo Hefesto
+FAVOR Perseo Hades
+ENOJO Casiopea Poseidon

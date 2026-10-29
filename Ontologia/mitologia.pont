@@ -1,4 +1,4 @@
-; Tue Oct 20 13:05:37 CEST 2026
+; Thu Oct 29 11:02:50 CET 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -8,9 +8,9 @@
 	(is-a USER)
 	(role abstract)
 	(single-slot estado_vida
-;+		(comment "Propiedad que indica el estado vital actual de la entidad (vivo o muerto)")
+;+		(comment "Propiedad que indica el estado vital actual de la entidad (true == vivo, false == muerto)")
 		(type SYMBOL)
-		(allowed-values vivo muerto)
+		(allowed-values FALSE TRUE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot tiene_capacidad
@@ -29,13 +29,13 @@
 ;+		(allowed-classes Objeto)
 		(create-accessor read-write))
 	(single-slot estado_libertad
-;+		(comment "Propiedad que determina si un personaje goza de libre movimiento o se encuentra apresado.")
+;+		(comment "Propiedad que determina si un personaje goza de libre movimiento (true) o se encuentra apresado (false).")
 		(type SYMBOL)
-		(allowed-values libre preso)
+		(allowed-values FALSE TRUE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot tiene_enojo
-;+		(comment "Relación que representa que un Personaje está furioso o enemistado con otro u otros.")
+;+		(comment "Relación que representa que un Personaje tiene la furia o enemistad de otro u otros.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
 		(create-accessor read-write))
@@ -111,9 +111,9 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot estado_libertad
-;+		(comment "Propiedad que determina si un personaje goza de libre movimiento o se encuentra apresado.")
+;+		(comment "Propiedad que determina si un personaje goza de libre movimiento (true) o se encuentra apresado (false).")
 		(type SYMBOL)
-		(allowed-values libre preso)
+		(allowed-values FALSE TRUE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot ubicacion_actual
@@ -123,14 +123,14 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot tiene_enojo
-;+		(comment "Relación que representa que un Personaje está furioso o enemistado con otro u otros.")
+;+		(comment "Relación que representa que un Personaje tiene la furia o enemistad de otro u otros.")
 		(type INSTANCE)
 ;+		(allowed-classes Personaje)
 		(create-accessor read-write))
 	(single-slot estado_vida
-;+		(comment "Propiedad que indica el estado vital actual de la entidad (vivo o muerto)")
+;+		(comment "Propiedad que indica el estado vital actual de la entidad (true == vivo, false == muerto)")
 		(type SYMBOL)
-		(allowed-values vivo muerto)
+		(allowed-values FALSE TRUE)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot tiene_capacidad
@@ -200,11 +200,6 @@
 (defclass Accion "Superclase que representa un evento dinámico o suceso ejecutado por un Personaje durante el transcurso del mito, que puede involucrar a otro Personaje u Objeto."
 	(is-a USER)
 	(role abstract)
-	(single-slot nombre
-;+		(comment "Identificador de texto único para nombrar al elemento, personaje o acción de la ontología.")
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(multislot destino
 ;+		(comment "Personaje u Objeto hacia el que va dirigida la relación.")
 		(type INSTANCE)

@@ -1,12 +1,12 @@
 package clases.acciones;
 
-import clases.Objeto;
 import clases.personajes.Personaje;
 
 public abstract class Accion {
-	public String nombre;
-	// No sé si es la mejor manera de hacerlo
-	public Personaje destino_personaje;
-	public Objeto destino_objeto;
+	/* 
+	 * Tener dos clases distintas segun el destino es la 
+	 * mejor manera de hacerlo aunque tambien podria hacerse
+	 * con dos atributos separados de cada tipo correspondiente
+	 */
 	public Personaje sujeto;
 }

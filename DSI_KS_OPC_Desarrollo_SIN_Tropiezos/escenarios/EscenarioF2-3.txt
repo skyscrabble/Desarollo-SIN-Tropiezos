@@ -1,0 +1,7 @@
+# Teseo sigue una cadena alternativa para liberar a Andromeda.
+PREGUNTA LIBERAR Teseo Andromeda
+FAVOR Teseo Atenea
+FAVOR Teseo Hermes
+FAVOR Teseo Hefesto
+FAVOR Teseo Hades
+ENOJO Casiopea Poseidon

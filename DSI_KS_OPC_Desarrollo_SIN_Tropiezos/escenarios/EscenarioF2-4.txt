@@ -1,0 +1,9 @@
+# Perseo obtiene alas alternativas en vez de las Sandalias Aladas.
+PREGUNTA LIBERAR Perseo Andromeda
+POSEE Perseo Alas_Icaro
+FAVOR Perseo Atenea
+FAVOR Perseo Hermes
+FAVOR Perseo Hefesto
+FAVOR Perseo Hades
+ENOJO Casiopea Poseidon
+LOCALIZA Teseo Minotauro

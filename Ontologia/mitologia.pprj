@@ -1,4 +1,4 @@
-; Tue Oct 20 13:05:37 CEST 2026
+; Thu Oct 29 11:02:50 CET 2026
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,22 +20,22 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[mitologia_ProjectKB_Class10374]
-		[mitologia_ProjectKB_Class10375]
-		[mitologia_ProjectKB_Class10376]
-		[mitologia_ProjectKB_Class10377]
-		[mitologia_ProjectKB_Class10378]
-		[mitologia_ProjectKB_Class10379]
-		[mitologia_ProjectKB_Class10380]
-		[mitologia_ProjectKB_Class10381]
-		[mitologia_ProjectKB_Class10382]
-		[mitologia_ProjectKB_Class10383]
-		[mitologia_ProjectKB_Class10384]
-		[mitologia_ProjectKB_Class10385]
-		[mitologia_ProjectKB_Class10386]
-		[mitologia_ProjectKB_Class10387]
-		[mitologia_ProjectKB_Class10388]
-		[mitologia_ProjectKB_Class10389]))
+		[mitologia_ProjectKB_Class10116]
+		[mitologia_ProjectKB_Class10117]
+		[mitologia_ProjectKB_Class10118]
+		[mitologia_ProjectKB_Class10119]
+		[mitologia_ProjectKB_Class10120]
+		[mitologia_ProjectKB_Class10121]
+		[mitologia_ProjectKB_Class10122]
+		[mitologia_ProjectKB_Class10123]
+		[mitologia_ProjectKB_Class10124]
+		[mitologia_ProjectKB_Class10125]
+		[mitologia_ProjectKB_Class10126]
+		[mitologia_ProjectKB_Class10127]
+		[mitologia_ProjectKB_Class10128]
+		[mitologia_ProjectKB_Class10129]
+		[mitologia_ProjectKB_Class10130]
+		[mitologia_ProjectKB_Class10131]))
 
 ([CLSES_TAB] of  Widget
 
@@ -79,6 +79,9 @@
 	(is_hidden FALSE)
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
+([KB_128567_Class3] of  Map
+)
+
 ([KB_203218_Class0] of  String
 
 	(name "factory_class_name")
@@ -87,9 +90,9 @@
 ([KB_203218_Class1] of  Map
 
 	(entries
-		[mitologia_ProjectKB_Class10390]
-		[mitologia_ProjectKB_Class10391]
-		[mitologia_ProjectKB_Class10392]))
+		[mitologia_ProjectKB_Class10132]
+		[mitologia_ProjectKB_Class10133]
+		[mitologia_ProjectKB_Class10134]))
 
 ([KB_203218_Class100] of  Property_List
 )
@@ -183,9 +186,6 @@
 ([KB_203218_Class99] of  Property_List
 )
 
-([KB_579890_Class3] of  Map
-)
-
 ([LAYOUT_PROPERTIES] of  Property_List
 
 	(name "layout properties")
@@ -206,181 +206,112 @@
 ([mitologia_ProjectKB_Class101] of  Property_List
 )
 
-([mitologia_ProjectKB_Class102] of  Property_List
-)
-
-([mitologia_ProjectKB_Class103] of  Property_List
-)
-
-([mitologia_ProjectKB_Class10303] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "otorga_capacidad")
-	(property_list [mitologia_ProjectKB_Class10304])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 120))
-
-([mitologia_ProjectKB_Class10304] of  Property_List
-)
-
-([mitologia_ProjectKB_Class10305] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "otorga_capacidad")
-	(property_list [mitologia_ProjectKB_Class10306])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 60))
-
-([mitologia_ProjectKB_Class10306] of  Property_List
-)
-
-([mitologia_ProjectKB_Class10307] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "otorga_capacidad")
-	(property_list [mitologia_ProjectKB_Class10308])
-	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
-	(width 200)
-	(x 0)
-	(y 120))
-
-([mitologia_ProjectKB_Class10308] of  Property_List
-)
-
-([mitologia_ProjectKB_Class10309] of  Widget
-
-	(height 60)
-	(is_hidden FALSE)
-	(name "otorga_capacidad")
-	(property_list [mitologia_ProjectKB_Class10310])
-	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
-	(width 200)
-	(x 0)
-	(y 120))
-
-([mitologia_ProjectKB_Class10310] of  Property_List
-
-	(properties
-		[mitologia_ProjectKB_Class10311]
-		[mitologia_ProjectKB_Class10312]))
-
-([mitologia_ProjectKB_Class10311] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-View References to Value"))
-
-([mitologia_ProjectKB_Class10312] of  Boolean
-
-	(boolean_value FALSE)
-	(name "ButtonDisplayed-Delete Instance"))
-
-([mitologia_ProjectKB_Class10374] of  String
+([mitologia_ProjectKB_Class10116] of  String
 
 	(name "Liberar")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10375] of  String
+([mitologia_ProjectKB_Class10117] of  String
 
 	(name "Objeto")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10376] of  String
+([mitologia_ProjectKB_Class10118] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([mitologia_ProjectKB_Class10377] of  String
+([mitologia_ProjectKB_Class10119] of  String
 
 	(name "Intercambiar")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10378] of  String
+([mitologia_ProjectKB_Class10120] of  String
 
 	(name "Capacidad")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10379] of  String
+([mitologia_ProjectKB_Class10121] of  String
 
 	(name "Ubicacion")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10380] of  String
+([mitologia_ProjectKB_Class10122] of  String
 
 	(name "Criatura")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10381] of  String
+([mitologia_ProjectKB_Class10123] of  String
 
 	(name "Dios")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10382] of  String
+([mitologia_ProjectKB_Class10124] of  String
 
 	(name "Heroe")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10383] of  String
+([mitologia_ProjectKB_Class10125] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([mitologia_ProjectKB_Class10384] of  String
+([mitologia_ProjectKB_Class10126] of  String
 
 	(name "Localizar")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10385] of  String
+([mitologia_ProjectKB_Class10127] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([mitologia_ProjectKB_Class10386] of  String
+([mitologia_ProjectKB_Class10128] of  String
 
 	(name "Matar")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10387] of  String
+([mitologia_ProjectKB_Class10129] of  String
 
 	(name "Apresar")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10388] of  String
+([mitologia_ProjectKB_Class10130] of  String
 
 	(name "Semidios")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10389] of  String
+([mitologia_ProjectKB_Class10131] of  String
 
 	(name "Humano")
 	(string_value "nombre"))
 
-([mitologia_ProjectKB_Class10390] of  Map_Entry
+([mitologia_ProjectKB_Class10132] of  Map_Entry
 
 	(key "suppress_instance_counting")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([mitologia_ProjectKB_Class10391] of  Map_Entry
+([mitologia_ProjectKB_Class10133] of  Map_Entry
 
 	(key "change_tracking_active")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
 
-([mitologia_ProjectKB_Class10392] of  Map_Entry
+([mitologia_ProjectKB_Class10134] of  Map_Entry
 
 	(key "add_name_on_instance_form")
 	(key_class "java.lang.String")
 	(value "false")
 	(value_class "java.lang.String"))
+
+([mitologia_ProjectKB_Class102] of  Property_List
+)
+
+([mitologia_ProjectKB_Class103] of  Property_List
+)
 
 ([mitologia_ProjectKB_Class107] of  String
 
@@ -843,11 +774,11 @@
 
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
+		[INSTANCE_ANNOTATION_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
 		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET]
-		[PAL_FORM_WIDGET]
-		[INSTANCE_ANNOTATION_FORM_WIDGET])
+		[PAL_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
