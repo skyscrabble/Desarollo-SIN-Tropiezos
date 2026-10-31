@@ -35,8 +35,7 @@ public final class BaseHechos {
 
         Ubicacion laberinto = new Ubicacion("Laberinto del Minotauro");
         Ubicacion islaMedusa = new Ubicacion("Isla de las Gorgonas");
-        hechos.add(laberinto);
-        hechos.add(islaMedusa);
+        agregar(hechos, laberinto, islaMedusa);
 
         Dios poseidon = new Dios("Poseidon", true, true);
         Dios atenea = new Dios("Atenea", true, true);
@@ -46,14 +45,17 @@ public final class BaseHechos {
         Dios zeus = new Dios("Zeus", true, true);
 
         Humano casiopea = new Humano("Casiopea", true, true);
-        Humano andromeda = new Humano("Andromeda", true, true);
-        Semidios perseo = new Semidios("Perseo", true, true);
-        Heroe heracles = new Heroe("Heracles", true, true);
-        Heroe teseo = new Heroe("Teseo", true, true);
-        Heroe ariadna = new Heroe("Ariadna", true, true);
+        Humano andromeda = new Humano("Andromeda", false, true);
         Humano minos = new Humano("Minos", true, true);
         Humano dedalo = new Humano("Dedalo", true, true);
         Humano icaro = new Humano("Icaro", true, true);
+        Humano danae = new Humano("Danae", true, true);
+        
+        Semidios perseo = new Semidios("Perseo", true, true);
+        
+        Heroe heracles = new Heroe("Heracles", true, true);
+        Heroe teseo = new Heroe("Teseo", true, true);
+        Heroe ariadna = new Heroe("Ariadna", true, true);
 
         Criatura ceto = new Criatura("Ceto", false, true);
         Criatura grayas = new Criatura("Grayas", true, true);
@@ -97,7 +99,7 @@ public final class BaseHechos {
                 yelmo, hoz, ojoGrayas, cabezaMedusa, cabezaCeto, cabezaMinotauro, hilo, espada,
                 alasIcaro, alasDedalo, cuerno, cera, plumas);
 
-        // Objetos que conceden capacidades.
+        // Objetos que conceden capacidades
         hechos.add(new OtorgaCapacidad(yelmo, invisibilidad));
         hechos.add(new OtorgaCapacidad(sandalias, vuelo));
         hechos.add(new OtorgaCapacidad(escudoEspejo, espejo));
@@ -105,7 +107,7 @@ public final class BaseHechos {
         hechos.add(new OtorgaCapacidad(alasDedalo, vuelo));
         hechos.add(new OtorgaCapacidad(cuerno, fuerza));
 
-        // Posesiones iniciales.
+        // Posesiones iniciales
         hechos.add(new TieneObjeto(hefesto, brida));
         hechos.add(new TieneObjeto(atenea, escudoBronce));
         hechos.add(new TieneObjeto(hermes, hoz));
@@ -118,11 +120,14 @@ public final class BaseHechos {
         hechos.add(new TieneObjeto(minotauro, cuerno));
         hechos.add(new TieneObjeto(dedalo, cera));
         hechos.add(new TieneObjeto(dedalo, plumas));
-        // Capacidades que ya existen por conocimiento inicial.
+        
+        // Capacidades que ya existen por conocimiento inicial
         hechos.add(new TieneCapacidad(heracles, fuerza));
 
-        // Relaciones de la ontologia.
+        // Relaciones de parentesco y favor/enojo
         hechos.add(new Parentesco(casiopea, andromeda));
+        hechos.add(new Parentesco(zeus, perseo));
+        hechos.add(new Parentesco(danae, perseo));
         hechos.add(new TieneEnojo(casiopea, poseidon));
         hechos.add(new TieneFavor(heracles, zeus));
 
