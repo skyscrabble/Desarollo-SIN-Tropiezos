@@ -13,4 +13,22 @@ public class Parentesco {
         this.padreOMadre = padreOMadre;
         this.hijo = hijo;
     }
+
+	public Personaje getPadreOMadre() {
+		return padreOMadre;
+	}
+
+	public void setPadreOMadre(Personaje padreOMadre) {
+		this.padreOMadre = padreOMadre;
+	}
+
+	public Personaje getHijo() {
+		return hijo;
+	}
+
+	public void setHijo(Personaje hijo) {
+		this.hijo = hijo;
+	}
+    
+    
 }

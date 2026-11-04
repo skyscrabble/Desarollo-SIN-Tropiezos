@@ -106,7 +106,7 @@ public final class AplicadorCondiciones {
                     exigir(indice, condicion.segundo, Objeto.class)));
             break;
         case NO_POSEE:
-        	// Elimina de la sesion la relación de TieneObjeto entre un Personaje y un Objeto
+        	// Elimina de la sesion la relacion de TieneObjeto entre un Personaje y un Objeto
             borrarPosesion(session, primero,
                     exigir(indice, condicion.segundo, Objeto.class));
             break;
@@ -188,7 +188,7 @@ public final class AplicadorCondiciones {
     }
 
     /**
-     * Elimina de la sesion la relación de TieneObjeto entre un Personaje y un Objeto.
+     * Elimina de la sesion la relacion de TieneObjeto entre un Personaje y un Objeto.
      *
      * @param session sesion de Drools que contiene los hechos de Posesion
      * @param personaje personaje cuya Posesion se desea eliminar

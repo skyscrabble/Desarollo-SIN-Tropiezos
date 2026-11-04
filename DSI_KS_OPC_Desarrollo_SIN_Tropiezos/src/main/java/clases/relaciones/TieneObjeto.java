@@ -14,4 +14,22 @@ public class TieneObjeto {
         this.personaje = personaje;
         this.objeto = objeto;
     }
+
+	public Personaje getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Personaje personaje) {
+		this.personaje = personaje;
+	}
+
+	public Objeto getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
+	}
+    
+    
 }

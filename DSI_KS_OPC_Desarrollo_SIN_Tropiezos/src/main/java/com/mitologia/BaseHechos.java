@@ -17,7 +17,6 @@ import clases.personajes.Semidios;
 import clases.relaciones.OtorgaCapacidad;
 import clases.relaciones.Parentesco;
 import clases.relaciones.TieneCapacidad;
-import clases.relaciones.TieneEnojo;
 import clases.relaciones.TieneFavor;
 import clases.relaciones.TieneObjeto;
 
@@ -45,7 +44,7 @@ public final class BaseHechos {
         Dios zeus = new Dios("Zeus", true, true);
 
         Humano casiopea = new Humano("Casiopea", true, true);
-        Humano andromeda = new Humano("Andromeda", false, true);
+        Humano andromeda = new Humano("Andromeda", true, true);
         Humano minos = new Humano("Minos", true, true);
         Humano dedalo = new Humano("Dedalo", true, true);
         Humano icaro = new Humano("Icaro", true, true);
@@ -128,7 +127,6 @@ public final class BaseHechos {
         hechos.add(new Parentesco(casiopea, andromeda));
         hechos.add(new Parentesco(zeus, perseo));
         hechos.add(new Parentesco(danae, perseo));
-        hechos.add(new TieneEnojo(casiopea, poseidon));
         hechos.add(new TieneFavor(heracles, zeus));
 
         return hechos;

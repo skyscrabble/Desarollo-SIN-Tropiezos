@@ -9,4 +9,14 @@ public abstract class Accion {
 	 * con dos atributos separados de cada tipo correspondiente
 	 */
 	public Personaje sujeto;
+
+	public Personaje getSujeto() {
+		return sujeto;
+	}
+
+	public void setSujeto(Personaje sujeto) {
+		this.sujeto = sujeto;
+	}
+	
+	
 }

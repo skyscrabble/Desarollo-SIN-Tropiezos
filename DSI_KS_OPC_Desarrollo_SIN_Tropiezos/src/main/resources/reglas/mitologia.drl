@@ -1,0 +1,89 @@
+package reglas
+
+import clases.*;
+import clases.personajes.*;
+import clases.relaciones.*;
+import com.mitologia.Mision;
+
+rule "Informacion inicial: personajes"
+    agenda-group "Informacion Inicial"
+    when
+        $p : Personaje()
+    then
+        System.out.println( $p.nombre + " | vivo: " + $p.estado_vida + " | libre: " + $p.estado_libertad );
+end
+
+rule "Informacion inicial: posesiones"
+    agenda-group "Informacion Inicial"
+    when
+        TieneObjeto( $p : personaje, $o : objeto )
+    then
+        System.out.println( $p.nombre + " posee " + $o.nombre );
+end
+
+rule "Informacion inicial: favores"
+    agenda-group "Informacion Inicial"
+    when
+        TieneFavor( $p : personaje, $d : dios )
+    then
+        System.out.println( $p.nombre + " tiene el favor de " + $d.nombre );
+end
+
+rule "Informacion inicial: enojos"
+    agenda-group "Informacion Inicial"
+    when
+        TieneEnojo( $p : personaje, $e : personajeEnojado )
+    then
+        System.out.println( $p.nombre + " tiene el enojo de " + $e.nombre );
+end
+
+rule "Informacion inicial: mision"
+    agenda-group "Informacion Inicial"
+    when
+        $m : Mision()
+    then
+        System.out.println( "Mision: " + $m.tipo + " sujeto=" + $m.sujeto.nombre );
+end
+
+rule "Un dios entrega sus objetos a quien tiene su favor"
+    when
+        TieneFavor( $p : personaje, $d : dios )
+        $t : TieneObjeto( personaje == $d, $o : objeto )
+        not TieneObjeto( personaje == $p, objeto == $o )
+    then
+        delete( $t );
+        insert( new TieneObjeto( $p, $o ) );
+        System.out.println( $p.nombre + " obtiene " + $o.nombre
+            + " debido a tener el favor de " + $d.nombre );
+end
+
+rule "Poseer un objeto otorga su capacidad"
+    when
+        TieneObjeto( $p : personaje, $o : objeto )
+        OtorgaCapacidad( objeto == $o, $c : capacidad )
+    then
+        insertLogical( new TieneCapacidad( $p, $c ) );
+        System.out.println( $p.nombre + " obtiene la capacidad " + $c.nombre
+            + " debido a tener " + $o.nombre );
+end
+
+
+rule "Mision OBJETO alcanzada"
+    when
+        $m : Mision( tipo == Mision.Tipo.OBJETO, $h : sujeto,
+                     $o : objetivoObjeto, alcanzada == false )
+        TieneObjeto( personaje == $h, objeto == $o )
+    then
+        modify( $m ) { setAlcanzada( true ) }
+        System.out.println( "Mision cumplida: " + $h.nombre + " obtiene " + $o.nombre );
+end
+
+rule "Mision CAPACIDAD alcanzada"
+    when
+        $m : Mision( tipo == Mision.Tipo.CAPACIDAD, $h : sujeto,
+                     $c : objetivoCapacidad, alcanzada == false )
+        TieneCapacidad( personaje == $h, capacidad == $c )
+    then
+        modify( $m ) { setAlcanzada( true ) }
+        System.out.println( "Mision cumplida: " + $h.nombre + " obtiene la capacidad " + $c.nombre );
+end

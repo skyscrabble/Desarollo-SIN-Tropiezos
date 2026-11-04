@@ -14,4 +14,22 @@ public class OtorgaCapacidad {
         this.objeto = objeto;
         this.capacidad = capacidad;
     }
+
+	public Objeto getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
+	}
+
+	public Capacidad getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Capacidad capacidad) {
+		this.capacidad = capacidad;
+	}
+    
+    
 }

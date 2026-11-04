@@ -14,4 +14,22 @@ public class TieneFavor {
         this.personaje = personaje;
         this.dios = dios;
     }
+
+	public Personaje getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Personaje personaje) {
+		this.personaje = personaje;
+	}
+
+	public Dios getDios() {
+		return dios;
+	}
+
+	public void setDios(Dios dios) {
+		this.dios = dios;
+	}
+    
+    
 }

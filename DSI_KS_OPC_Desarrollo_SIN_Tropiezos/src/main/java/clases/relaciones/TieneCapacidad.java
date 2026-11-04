@@ -14,4 +14,22 @@ public class TieneCapacidad {
         this.personaje = personaje;
         this.capacidad = capacidad;
     }
+
+	public Personaje getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Personaje personaje) {
+		this.personaje = personaje;
+	}
+
+	public Capacidad getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Capacidad capacidad) {
+		this.capacidad = capacidad;
+	}
+    
+    
 }

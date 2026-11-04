@@ -30,4 +30,62 @@ public class Mision {
         this.tipo = tipo;
         this.sujeto = sujeto;
     }
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Personaje getSujeto() {
+		return sujeto;
+	}
+
+	public void setSujeto(Personaje sujeto) {
+		this.sujeto = sujeto;
+	}
+
+	public Personaje getObjetivoPersonaje() {
+		return objetivoPersonaje;
+	}
+
+	public void setObjetivoPersonaje(Personaje objetivoPersonaje) {
+		this.objetivoPersonaje = objetivoPersonaje;
+	}
+
+	public Objeto getObjetivoObjeto() {
+		return objetivoObjeto;
+	}
+
+	public void setObjetivoObjeto(Objeto objetivoObjeto) {
+		this.objetivoObjeto = objetivoObjeto;
+	}
+
+	public Capacidad getObjetivoCapacidad() {
+		return objetivoCapacidad;
+	}
+
+	public void setObjetivoCapacidad(Capacidad objetivoCapacidad) {
+		this.objetivoCapacidad = objetivoCapacidad;
+	}
+
+	public boolean isAlcanzada() {
+		return alcanzada;
+	}
+
+	public void setAlcanzada(boolean alcanzada) {
+		this.alcanzada = alcanzada;
+	}
+
+	public boolean isImposible() {
+		return imposible;
+	}
+
+	public void setImposible(boolean imposible) {
+		this.imposible = imposible;
+	}
+    
+    
 }

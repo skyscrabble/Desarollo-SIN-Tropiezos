@@ -14,4 +14,22 @@ public class AccionDestinoPersonaje {
         this.accion = accion;
         this.destino = destino;
     }
+
+	public Accion getAccion() {
+		return accion;
+	}
+
+	public void setAccion(Accion accion) {
+		this.accion = accion;
+	}
+
+	public Personaje getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Personaje destino) {
+		this.destino = destino;
+	}
+    
+    
 }
