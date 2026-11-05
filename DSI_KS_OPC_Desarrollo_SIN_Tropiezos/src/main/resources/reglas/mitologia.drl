@@ -3,6 +3,7 @@ package reglas
 import clases.*;
 import clases.personajes.*;
 import clases.relaciones.*;
+import clases.acciones.*;
 import com.mitologia.Mision;
 
 rule "Informacion inicial: personajes"
@@ -58,6 +59,7 @@ rule "Un dios entrega sus objetos a quien tiene su favor"
 end
 
 rule "Poseer un objeto otorga su capacidad"
+	salience 80
     when
         TieneObjeto( $p : personaje, $o : objeto )
         OtorgaCapacidad( objeto == $o, $c : capacidad )
@@ -69,6 +71,7 @@ end
 
 
 rule "Mision OBJETO alcanzada"
+	salience 0
     when
         $m : Mision( tipo == Mision.Tipo.OBJETO, $h : sujeto,
                      $o : objetivoObjeto, alcanzada == false )
@@ -79,6 +82,7 @@ rule "Mision OBJETO alcanzada"
 end
 
 rule "Mision CAPACIDAD alcanzada"
+	salience 0
     when
         $m : Mision( tipo == Mision.Tipo.CAPACIDAD, $h : sujeto,
                      $c : objetivoCapacidad, alcanzada == false )
@@ -86,4 +90,49 @@ rule "Mision CAPACIDAD alcanzada"
     then
         modify( $m ) { setAlcanzada( true ) }
         System.out.println( "Mision cumplida: " + $h.nombre + " obtiene la capacidad " + $c.nombre );
+end
+
+rule "Mision MATAR alcanzada"
+	salience 0
+	when
+	    $m : Mision(tipo == Mision.Tipo.MATAR, alcanzada == false, 
+	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
+	    $accion : Matar(sujeto == $sujeto)
+	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+	    Personaje(this == $objetivo, estado_vida == false)
+	then
+	    modify($m) {
+	        setAlcanzada(true)
+	    }
+	    System.out.println("Mision cumplida: " + $sujeto.nombre + " mata a " + $objetivo.nombre);
+end
+
+rule "Mision APRESAR alcanzada"
+	salience 0
+	when
+	    $m : Mision(tipo == Mision.Tipo.APRESAR, alcanzada == false, 
+	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
+	    $accion : Apresar(sujeto == $sujeto)
+	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+	    Personaje(this == $objetivo, estado_vida == true, estado_libertad == false)
+	then
+	    modify($m) {
+	        setAlcanzada(true)
+	    }
+	    System.out.println("Mision cumplida: " + $sujeto.nombre + " apresa a " + $objetivo.nombre);
+end
+
+rule "Mision LIBERAR alcanzada"
+	salience 0
+	when
+	    $m : Mision(tipo == Mision.Tipo.LIBERAR, alcanzada == false, 
+	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
+	    $accion : Liberar(sujeto == $sujeto)
+	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+	    Personaje(this == $objetivo, estado_vida == true, estado_libertad == true)
+	then
+	    modify($m) {
+	        setAlcanzada(true)
+	    }
+	    System.out.println("Mision cumplida: " + $sujeto.nombre + " libera a " + $objetivo.nombre);
 end
