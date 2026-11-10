@@ -33,13 +33,11 @@ public class Main {
             try {
                 procesar(fichero, kContainer, carpetaSoluciones);
             } catch (IllegalArgumentException e) {
-                // Un escenario erroneo no cancela los demas
                 System.out.println("ERROR en " + fichero.getFileName() + ": " + e.getMessage());
             }
         }
     }
 
-    // Devuelve los .txt por nombre
     private static List<Path> listarEscenarios(Path carpeta) throws IOException {
         List<Path> ficheros = new ArrayList<>();
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(carpeta, "*.txt")) {
@@ -55,51 +53,63 @@ public class Main {
             throws IOException {
         String nombre = fichero.getFileName().toString();
 
-        // Mostrar el escenario en consola
         System.out.println("=== " + nombre + " ===");
         for (String linea : Files.readAllLines(fichero, StandardCharsets.UTF_8)) {
             System.out.println(linea);
         }
         System.out.println("\n *** Fin Descripcion Escenario ***\n\n");
 
-        //  Leer escenario y crear hechos (nuevos)
         Escenario escenario = EscenarioParser.leer(fichero);
         List<Object> hechos = BaseHechos.crearHechosIniciales();
         Map<String, Object> indice = BaseHechos.crearIndice(hechos);
 
-        // Una sesion por escenario
         KieSession session = kContainer.newKieSession("ksession-mitologia");
+        List<String> salida = new ArrayList<>();
+        session.setGlobal("salida", salida);
+
         try {
-            // Primero la base de hechos
-        	//FactHandle para el Aplicador de condiciones
             for (Object hecho : hechos) {
                 session.insert(hecho);
             }
             Mision mision = AplicadorCondiciones.aplicar(escenario, session, indice);
 
-            //  Ejecutar primero la informacion inicial luego las demas reglas
             session.getAgenda().getAgendaGroup("Informacion Inicial").setFocus();
             session.fireAllRules();
 
-            //  Resultado
             Path destino = carpetaSoluciones.resolve(
                     "Respuesta" + nombre.replaceFirst("^Escenario", ""));
-            escribirRespuesta(destino, mision);
+            escribirRespuesta(destino, mision, salida);
         } finally {
             session.dispose();
         }
         System.out.println("\n *** Fin Escenario " + nombre + " ***\n\n");
     }
 
-    // De momento solo Si/No. Mover a una clase GeneradorSalidas cuando exista el relato.
-    private static void escribirRespuesta(Path destino, Mision mision) throws IOException {
+    private static void escribirRespuesta(Path destino, Mision mision, List<String> salidaRelato) throws IOException {
         List<String> lineas = new ArrayList<>();
-        lineas.add(mision.alcanzada ? "Si" : "No");
-        // TODO: anadir el relato "X debido a Y" cuando las reglas lo generen
+
+        String nombreObjetivo = "";
+        if (mision.objetivoPersonaje != null) {
+            nombreObjetivo = mision.objetivoPersonaje.nombre;
+        } else if (mision.objetivoObjeto != null) {
+            nombreObjetivo = mision.objetivoObjeto.nombre;
+        } else if (mision.objetivoCapacidad != null) {
+            nombreObjetivo = mision.objetivoCapacidad.nombre;
+        }
+
+        String resultado = (mision.alcanzada ? "Si, " : "No, ") + 
+                           (mision.sujeto != null ? mision.sujeto.nombre : "El heroe") + 
+                           " puede " + mision.tipo + 
+                           (!nombreObjetivo.isEmpty() ? " " + nombreObjetivo : "") + 
+                           " debido a que:";
+        lineas.add(resultado);
+
+        lineas.addAll(salidaRelato);
+
         Files.write(destino, lineas, StandardCharsets.UTF_8);
 
         for (String linea : lineas) {
             System.out.println(linea);
         }
     }
-}
+}  

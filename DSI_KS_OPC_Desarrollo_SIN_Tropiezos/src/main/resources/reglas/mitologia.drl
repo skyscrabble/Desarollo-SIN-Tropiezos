@@ -6,6 +6,8 @@ import clases.relaciones.*;
 import clases.acciones.*;
 import com.mitologia.Mision;
 
+global java.util.List salida;
+
 rule "Informacion inicial: personajes"
     agenda-group "Informacion Inicial"
     when
@@ -54,12 +56,11 @@ rule "Un dios entrega sus objetos a quien tiene su favor"
     then
         delete( $t );
         insert( new TieneObjeto( $p, $o ) );
-        System.out.println( $p.nombre + " obtiene " + $o.nombre
-            + " debido a tener el favor de " + $d.nombre );
+        salida.add( $p.nombre + " obtiene " + $o.nombre + " debido a tener el favor de " + $d.nombre + "." );
 end
 
 rule "Poseer un objeto otorga su capacidad"
-	salience 80
+    salience 80
     when
         TieneObjeto( $p : personaje, $o : objeto )
         OtorgaCapacidad( objeto == $o, $c : capacidad )
@@ -71,68 +72,183 @@ end
 
 
 rule "Mision OBJETO alcanzada"
-	salience 0
+    salience 0
     when
         $m : Mision( tipo == Mision.Tipo.OBJETO, $h : sujeto,
                      $o : objetivoObjeto, alcanzada == false )
         TieneObjeto( personaje == $h, objeto == $o )
     then
         modify( $m ) { setAlcanzada( true ) }
-        System.out.println( "Mision cumplida: " + $h.nombre + " obtiene " + $o.nombre );
+        salida.add( "Mision cumplida: " + $h.nombre + " obtiene " + $o.nombre );
 end
 
 rule "Mision CAPACIDAD alcanzada"
-	salience 0
+    salience 0
     when
         $m : Mision( tipo == Mision.Tipo.CAPACIDAD, $h : sujeto,
                      $c : objetivoCapacidad, alcanzada == false )
         TieneCapacidad( personaje == $h, capacidad == $c )
     then
         modify( $m ) { setAlcanzada( true ) }
-        System.out.println( "Mision cumplida: " + $h.nombre + " obtiene la capacidad " + $c.nombre );
+        salida.add( "Mision cumplida: " + $h.nombre + " obtiene la capacidad " + $c.nombre );
 end
 
 rule "Mision MATAR alcanzada"
-	salience 0
-	when
-	    $m : Mision(tipo == Mision.Tipo.MATAR, alcanzada == false, 
-	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
-	    $accion : Matar(sujeto == $sujeto)
-	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
-	    Personaje(this == $objetivo, estado_vida == false)
-	then
-	    modify($m) {
-	        setAlcanzada(true)
-	    }
-	    System.out.println("Mision cumplida: " + $sujeto.nombre + " mata a " + $objetivo.nombre);
+    salience 0
+    when
+        $m : Mision(tipo == Mision.Tipo.MATAR, alcanzada == false, 
+                    $sujeto : sujeto, $objetivo : objetivoPersonaje)
+        $accion : Matar(sujeto == $sujeto)
+        AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+        Personaje(this == $objetivo, estado_vida == false)
+    then
+        modify($m) {
+            setAlcanzada(true)
+        }
+        salida.add("Mision cumplida: " + $sujeto.nombre + " mata a " + $objetivo.nombre);
 end
 
 rule "Mision APRESAR alcanzada"
-	salience 0
-	when
-	    $m : Mision(tipo == Mision.Tipo.APRESAR, alcanzada == false, 
-	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
-	    $accion : Apresar(sujeto == $sujeto)
-	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
-	    Personaje(this == $objetivo, estado_vida == true, estado_libertad == false)
-	then
-	    modify($m) {
-	        setAlcanzada(true)
-	    }
-	    System.out.println("Mision cumplida: " + $sujeto.nombre + " apresa a " + $objetivo.nombre);
+    salience 0
+    when
+        $m : Mision(tipo == Mision.Tipo.APRESAR, alcanzada == false, 
+                    $sujeto : sujeto, $objetivo : objetivoPersonaje)
+        $accion : Apresar(sujeto == $sujeto)
+        AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+        Personaje(this == $objetivo, estado_vida == true, estado_libertad == false)
+    then
+        modify($m) {
+            setAlcanzada(true)
+        }
+        salida.add("Mision cumplida: " + $sujeto.nombre + " apresa a " + $objetivo.nombre);
 end
 
 rule "Mision LIBERAR alcanzada"
-	salience 0
-	when
-	    $m : Mision(tipo == Mision.Tipo.LIBERAR, alcanzada == false, 
-	    			$sujeto : sujeto, $objetivo : objetivoPersonaje)
-	    $accion : Liberar(sujeto == $sujeto)
-	    AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
-	    Personaje(this == $objetivo, estado_vida == true, estado_libertad == true)
-	then
-	    modify($m) {
-	        setAlcanzada(true)
-	    }
-	    System.out.println("Mision cumplida: " + $sujeto.nombre + " libera a " + $objetivo.nombre);
+    salience 0
+    when
+        $m : Mision(tipo == Mision.Tipo.LIBERAR, alcanzada == false, 
+                    $sujeto : sujeto, $objetivo : objetivoPersonaje)
+        $accion : Liberar(sujeto == $sujeto)
+        AccionDestinoPersonaje(accion == $accion, destino == $objetivo)
+        Personaje(this == $objetivo, estado_vida == true, estado_libertad == true)
+    then
+        modify($m) {
+            setAlcanzada(true)
+        }
+        salida.add("Mision cumplida: " + $sujeto.nombre + " libera a " + $objetivo.nombre);
 end
+
+
+
+rule "Poseidon envia a Ceto a apresar a Andromeda"
+    when
+        TieneEnojo( personaje.nombre == "Casiopea", personajeEnojado.nombre == "Poseidon" )
+        $andromeda : Personaje( nombre == "Andromeda", estado_libertad == true )
+        $m : Mision( alcanzada == false )
+    then
+        modify( $andromeda ) { estado_libertad = false }
+        salida.add( "Poseidon, enojado con Casiopea, envia al monstruo Ceto a apresar a Andromeda." );
+end
+
+rule "Un heroe obtiene el Ojo de las Grayas"
+    when
+        $heroe : Personaje( estado_libertad == true )
+        $m : Mision( sujeto == $heroe, alcanzada == false )
+        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Invisibilidad" )
+        $grayas : Personaje( nombre == "Grayas" )
+        $t : TieneObjeto( personaje == $grayas, $ojo : objeto )
+        eval( $ojo.nombre.equals("Ojo de las Grayas") )
+        not TieneObjeto( personaje == $heroe, objeto == $ojo )
+    then
+        delete( $t );
+        insert( new TieneObjeto( $heroe, $ojo ) );
+        salida.add( $heroe.nombre + ", invisible gracias al Yelmo de Hades, le arrebata el Ojo de las Grayas a las Grayas." );
+end
+
+rule "Las Ninfas entregan sus objetos a un heroe"
+    when
+        $heroe : Personaje()
+        $m : Mision( sujeto == $heroe, alcanzada == false )
+        TieneObjeto( personaje == $heroe, objeto.nombre == "Ojo de las Grayas" )
+        $ninfas : Personaje( nombre == "Ninfas" )
+        $t : TieneObjeto( personaje == $ninfas, $o : objeto )
+        not TieneObjeto( personaje == $heroe, objeto == $o )
+    then
+        delete( $t );
+        insert( new TieneObjeto( $heroe, $o ) );
+        salida.add( $heroe.nombre + " utiliza el Ojo de las Grayas para localizar a las Ninfas, y estas le otorgan " + $o.nombre + "." );
+end
+
+rule "Un heroe mata a Medusa"
+    when
+        $heroe : Personaje( estado_libertad == true )
+        $m : Mision( sujeto == $heroe, alcanzada == false )
+        $medusa : Personaje( nombre == "Medusa", estado_vida == true )
+        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Vuelo" )
+        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Invisibilidad" )
+        TieneObjeto( personaje == $heroe, objeto.nombre == "Escudo de Bronce" )
+        TieneObjeto( personaje == $heroe, objeto.nombre == "Hoz de Acero" )
+        TieneObjeto( personaje == $heroe, objeto.nombre == "Zurron Magico" )
+    then
+        modify( $medusa ) { estado_vida = false }
+        Objeto cabeza = new Objeto( "Cabeza de Medusa" );
+        insert( cabeza );
+        insert( new TieneObjeto( $heroe, cabeza ) );
+        salida.add( $heroe.nombre + " contempla a Medusa a traves del reflejo del Escudo de Bronce, la decapita con la Hoz de Acero y guarda la Cabeza de Medusa en el Zurron Magico." );
+end
+
+rule "Un heroe petrifica a Ceto y libera a Andromeda"
+    when
+        $m : Mision( tipo == Mision.Tipo.LIBERAR, $heroe : sujeto, 
+                     objetivoPersonaje.nombre == "Andromeda", alcanzada == false )
+        Personaje( this == $heroe, estado_libertad == true )
+        $andromeda : Personaje( nombre == "Andromeda", estado_libertad == false )
+        TieneObjeto( personaje == $heroe, objeto.nombre == "Cabeza de Medusa" )
+        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Vuelo" )
+        $ceto : Personaje( nombre == "Ceto" )
+    then
+        modify( $ceto ) { estado_vida = false }
+        modify( $andromeda ) { estado_libertad = true }
+        modify( $m ) { setAlcanzada( true ) }
+        salida.add( $heroe.nombre + " vuela hasta el lugar donde esta apresada Andromeda, muestra la Cabeza de Medusa a Ceto petrificandolo, y libera a Andromeda." );
+end
+
+
+
+rule "Un heroe mata al Minotauro"
+    when
+        $heroe : Personaje( estado_libertad == true )
+        $minotauro : Personaje( nombre == "Minotauro", estado_vida == true )
+        $loc : Localizar( sujeto == $heroe )
+        AccionDestinoPersonaje( accion == $loc, destino == $minotauro )
+    then
+        modify( $minotauro ) { estado_vida = false }
+        Objeto cabezaM = new Objeto( "Cabeza de Minotauro" );
+        insert( cabezaM );
+        insert( new TieneObjeto( $heroe, cabezaM ) );
+        
+        Matar accion = new Matar();
+        accion.setSujeto($heroe);
+        insert( accion );
+        insert( new AccionDestinoPersonaje(accion, $minotauro) );
+        
+        salida.add( $heroe.nombre + " se adentra en el laberinto, derrota al Minotauro y obtiene la Cabeza de Minotauro." );
+end
+
+rule "Un heroe libera a un prisionero del Minotauro"
+    when
+        $libertador : Personaje( estado_libertad == true )
+        $prisionero : Personaje( estado_libertad == false, nombre != "Minotauro", nombre != "Ceto" )
+        $minotauro : Personaje( nombre == "Minotauro" )
+        $loc : Localizar( sujeto == $libertador )
+        AccionDestinoPersonaje( accion == $loc, destino == $minotauro )
+    then
+        modify( $prisionero ) { estado_libertad = true }
+        
+        Liberar accion = new Liberar();
+        accion.setSujeto($libertador);
+        insert( accion );
+        insert( new AccionDestinoPersonaje(accion, $prisionero) );
+        
+        salida.add( $libertador.nombre + " localiza la guarida del Minotauro y libera a " + $prisionero.nombre + "." );
+end                                                        
