@@ -62,14 +62,14 @@ public final class BaseHechos {
         Criatura medusa = new Criatura("Medusa", true, true);
         Criatura minotauro = new Criatura("Minotauro", false, true);
         Criatura pegaso = new Criatura("Pegaso", true, true);
+        Criatura kraken = new Criatura("Kraken", false, true);
 
         minotauro.ubicacion_actual = laberinto;
         medusa.ubicacion_actual = islaMedusa;
 
         agregar(hechos, poseidon, atenea, hermes, hefesto, hades, zeus,
                 casiopea, andromeda, perseo, heracles, teseo, ariadna, minos,
-                dedalo, icaro, ceto, grayas, ninfas, medusa, minotauro, pegaso);
-
+                dedalo, icaro, ceto, grayas, ninfas, medusa, minotauro, pegaso, kraken); 
         Capacidad invisibilidad = new Capacidad("Invisibilidad");
         Capacidad vuelo = new Capacidad("Vuelo");
         Capacidad espejo = new Capacidad("Espejo");
@@ -94,18 +94,24 @@ public final class BaseHechos {
         Objeto cuerno = new Objeto("Cuerno del Minotauro");
         Objeto cera = new Objeto("Cera de Abejas");
         Objeto plumas = new Objeto("Plumas de Aves");
+        Objeto anilloInvisibilidad = new Objeto("Anillo de Invisibilidad"); 
+        Objeto espejoMano = new Objeto("Espejo de Mano"); 
+        Objeto conjuroVuelo = new Objeto("Conjuro de Vuelo"); 
+
         agregar(hechos, brida, escudoBronce, escudoEspejo, sandalias, zurron,
                 yelmo, hoz, ojoGrayas, cabezaMedusa, cabezaCeto, cabezaMinotauro, hilo, espada,
-                alasIcaro, alasDedalo, cuerno, cera, plumas);
+                alasIcaro, alasDedalo, cuerno, cera, plumas, anilloInvisibilidad, espejoMano, conjuroVuelo); 
 
-        // Objetos que conceden capacidades
+     // Objetos que conceden capacidades
         hechos.add(new OtorgaCapacidad(yelmo, invisibilidad));
         hechos.add(new OtorgaCapacidad(sandalias, vuelo));
         hechos.add(new OtorgaCapacidad(escudoEspejo, espejo));
         hechos.add(new OtorgaCapacidad(alasIcaro, vuelo));
         hechos.add(new OtorgaCapacidad(alasDedalo, vuelo));
         hechos.add(new OtorgaCapacidad(cuerno, fuerza));
-
+        hechos.add(new OtorgaCapacidad(anilloInvisibilidad, invisibilidad)); 
+        hechos.add(new OtorgaCapacidad(espejoMano, espejo)); 
+        hechos.add(new OtorgaCapacidad(conjuroVuelo, vuelo)); 
         // Posesiones iniciales
         hechos.add(new TieneObjeto(hefesto, brida));
         hechos.add(new TieneObjeto(atenea, escudoBronce));

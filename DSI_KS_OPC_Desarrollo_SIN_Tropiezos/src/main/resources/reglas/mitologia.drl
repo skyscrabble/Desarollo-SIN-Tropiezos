@@ -238,7 +238,7 @@ end
 rule "Un heroe libera a un prisionero del Minotauro"
     when
         $libertador : Personaje( estado_libertad == true )
-        $prisionero : Personaje( estado_libertad == false, nombre != "Minotauro", nombre != "Ceto" )
+        $prisionero : Personaje( estado_libertad == false, nombre != "Minotauro", nombre != "Ceto", nombre != "Kraken" )
         $minotauro : Personaje( nombre == "Minotauro" )
         $loc : Localizar( sujeto == $libertador )
         AccionDestinoPersonaje( accion == $loc, destino == $minotauro )
