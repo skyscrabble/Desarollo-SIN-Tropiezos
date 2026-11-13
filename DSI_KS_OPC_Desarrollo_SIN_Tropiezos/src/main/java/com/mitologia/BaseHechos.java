@@ -46,8 +46,8 @@ public final class BaseHechos {
         Humano casiopea = new Humano("Casiopea", true, true);
         Humano andromeda = new Humano("Andromeda", true, true);
         Humano minos = new Humano("Minos", true, true);
-        Humano dedalo = new Humano("Dedalo", true, true);
-        Humano icaro = new Humano("Icaro", true, true);
+        Humano dedalo = new Humano("Dedalo", false, true);
+        Humano icaro = new Humano("Icaro", false, true);
         Humano danae = new Humano("Danae", true, true);
         
         Semidios perseo = new Semidios("Perseo", true, true);
@@ -60,7 +60,7 @@ public final class BaseHechos {
         Criatura grayas = new Criatura("Grayas", true, true);
         Criatura ninfas = new Criatura("Ninfas", true, true);
         Criatura medusa = new Criatura("Medusa", true, true);
-        Criatura minotauro = new Criatura("Minotauro", false, true);
+        Criatura minotauro = new Criatura("Minotauro", true, true);
         Criatura pegaso = new Criatura("Pegaso", true, true);
         Criatura kraken = new Criatura("Kraken", false, true);
 

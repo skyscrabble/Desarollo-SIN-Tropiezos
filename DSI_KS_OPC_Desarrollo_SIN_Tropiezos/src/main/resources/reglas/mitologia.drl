@@ -49,10 +49,11 @@ rule "Informacion inicial: mision"
 end
 
 rule "Un dios entrega sus objetos a quien tiene su favor"
+    no-loop true
     when
         TieneFavor( $p : personaje, $d : dios )
-        $t : TieneObjeto( personaje == $d, $o : objeto )
-        not TieneObjeto( personaje == $p, objeto == $o )
+        $t : TieneObjeto( personaje.nombre == $d.nombre, $o : objeto )
+        not TieneObjeto( personaje.nombre == $p.nombre, objeto.nombre == $o.nombre )
     then
         delete( $t );
         insert( new TieneObjeto( $p, $o ) );
@@ -60,10 +61,12 @@ rule "Un dios entrega sus objetos a quien tiene su favor"
 end
 
 rule "Poseer un objeto otorga su capacidad"
+    no-loop true
     salience 80
     when
         TieneObjeto( $p : personaje, $o : objeto )
         OtorgaCapacidad( objeto == $o, $c : capacidad )
+        not TieneCapacidad( personaje.nombre == $p.nombre, capacidad.nombre == $c.nombre )
     then
         insertLogical( new TieneCapacidad( $p, $c ) );
         System.out.println( $p.nombre + " obtiene la capacidad " + $c.nombre
@@ -72,6 +75,7 @@ end
 
 
 rule "Mision OBJETO alcanzada"
+    no-loop true
     salience 0
     when
         $m : Mision( tipo == Mision.Tipo.OBJETO, $h : sujeto,
@@ -83,6 +87,7 @@ rule "Mision OBJETO alcanzada"
 end
 
 rule "Mision CAPACIDAD alcanzada"
+    no-loop true
     salience 0
     when
         $m : Mision( tipo == Mision.Tipo.CAPACIDAD, $h : sujeto,
@@ -94,6 +99,7 @@ rule "Mision CAPACIDAD alcanzada"
 end
 
 rule "Mision MATAR alcanzada"
+    no-loop true
     salience 0
     when
         $m : Mision(tipo == Mision.Tipo.MATAR, alcanzada == false, 
@@ -109,6 +115,7 @@ rule "Mision MATAR alcanzada"
 end
 
 rule "Mision APRESAR alcanzada"
+    no-loop true
     salience 0
     when
         $m : Mision(tipo == Mision.Tipo.APRESAR, alcanzada == false, 
@@ -124,6 +131,7 @@ rule "Mision APRESAR alcanzada"
 end
 
 rule "Mision LIBERAR alcanzada"
+    no-loop true
     salience 0
     when
         $m : Mision(tipo == Mision.Tipo.LIBERAR, alcanzada == false, 
@@ -141,12 +149,14 @@ end
 
 
 rule "Poseidon envia a Ceto a apresar a Andromeda"
+    no-loop true
     when
-        TieneEnojo( personaje.nombre == "Casiopea", personajeEnojado.nombre == "Poseidon" )
+        $enojo : TieneEnojo( personaje.nombre == "Casiopea", personajeEnojado.nombre == "Poseidon" )
         $andromeda : Personaje( nombre == "Andromeda", estado_libertad == true )
         $m : Mision( alcanzada == false )
     then
         modify( $andromeda ) { estado_libertad = false }
+        delete( $enojo );
         salida.add( "Poseidon, enojado con Casiopea, envia al monstruo Ceto a apresar a Andromeda." );
 end
 
@@ -166,13 +176,14 @@ rule "Un heroe obtiene el Ojo de las Grayas"
 end
 
 rule "Las Ninfas entregan sus objetos a un heroe"
+    no-loop true
     when
         $heroe : Personaje()
         $m : Mision( sujeto == $heroe, alcanzada == false )
-        TieneObjeto( personaje == $heroe, objeto.nombre == "Ojo de las Grayas" )
+        TieneObjeto( personaje.nombre == $heroe.nombre, objeto.nombre == "Ojo de las Grayas" )
         $ninfas : Personaje( nombre == "Ninfas" )
-        $t : TieneObjeto( personaje == $ninfas, $o : objeto )
-        not TieneObjeto( personaje == $heroe, objeto == $o )
+        $t : TieneObjeto( personaje.nombre == $ninfas.nombre, $o : objeto )
+        not TieneObjeto( personaje.nombre == $heroe.nombre, objeto.nombre == $o.nombre )
     then
         delete( $t );
         insert( new TieneObjeto( $heroe, $o ) );
@@ -180,6 +191,7 @@ rule "Las Ninfas entregan sus objetos a un heroe"
 end
 
 rule "Un heroe mata a Medusa"
+    no-loop true
     when
         $heroe : Personaje( estado_libertad == true )
         $m : Mision( sujeto == $heroe, alcanzada == false )
@@ -198,6 +210,7 @@ rule "Un heroe mata a Medusa"
 end
 
 rule "Un heroe petrifica a Ceto y libera a Andromeda"
+    no-loop true
     when
         $m : Mision( tipo == Mision.Tipo.LIBERAR, $heroe : sujeto, 
                      objetivoPersonaje.nombre == "Andromeda", alcanzada == false )
@@ -216,6 +229,7 @@ end
 
 
 rule "Un heroe mata al Minotauro"
+    no-loop true
     when
         $heroe : Personaje( estado_libertad == true )
         $minotauro : Personaje( nombre == "Minotauro", estado_vida == true )
@@ -236,9 +250,10 @@ rule "Un heroe mata al Minotauro"
 end
 
 rule "Un heroe libera a un prisionero del Minotauro"
+    no-loop true
     when
         $libertador : Personaje( estado_libertad == true )
-        $prisionero : Personaje( estado_libertad == false, nombre != "Minotauro", nombre != "Ceto", nombre != "Kraken" )
+        $prisionero : Personaje( estado_libertad == false, nombre != "Minotauro", nombre != "Ceto", nombre != "Kraken", nombre != "Andromeda", nombre != "Dedalo", nombre != "Icaro" )
         $minotauro : Personaje( nombre == "Minotauro" )
         $loc : Localizar( sujeto == $libertador )
         AccionDestinoPersonaje( accion == $loc, destino == $minotauro )
@@ -251,4 +266,59 @@ rule "Un heroe libera a un prisionero del Minotauro"
         insert( new AccionDestinoPersonaje(accion, $prisionero) );
         
         salida.add( $libertador.nombre + " localiza la guarida del Minotauro y libera a " + $prisionero.nombre + "." );
-end                                                        
+end
+
+rule "Dedalo fabrica las Alas con Cera y Plumas"
+    no-loop true
+    when
+        $dedalo : Personaje( nombre == "Dedalo", estado_libertad == false )
+        $icaro : Personaje( nombre == "Icaro", estado_libertad == false )
+        TieneObjeto( personaje == $dedalo, objeto.nombre == "Cera de Abejas" )
+        TieneObjeto( personaje == $dedalo, objeto.nombre == "Plumas de Aves" )
+        not TieneObjeto( personaje == $dedalo, objeto.nombre == "Alas de Dedalo" )
+        $vuelo : Capacidad( nombre == "Vuelo" )
+    then
+        Objeto alasD = new Objeto( "Alas de Dedalo" );
+        Objeto alasI = new Objeto( "Alas de Icaro" );
+        insert( alasD );
+        insert( alasI );
+        insert( new TieneObjeto( $dedalo, alasD ) );
+        insert( new TieneObjeto( $icaro, alasI ) );
+        
+        // Enlazamos las nuevas alas con la capacidad de volar
+        insert( new OtorgaCapacidad( alasD, $vuelo ) );
+        insert( new OtorgaCapacidad( alasI, $vuelo ) );
+        
+        Fabricar accion = new Fabricar();
+        accion.setSujeto($dedalo);
+        insert( accion );
+        
+        salida.add( "Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro." );
+end
+
+rule "Icaro muere al intentar escapar volando"
+    no-loop true
+    when
+        $icaro : Personaje( nombre == "Icaro", estado_libertad == false, estado_vida == true )
+        TieneObjeto( personaje == $icaro, objeto.nombre == "Alas de Icaro" )
+    then
+        modify( $icaro ) { estado_vida = false }
+        salida.add( "Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar." );
+end
+
+rule "Dedalo escapa del laberinto volando"
+    no-loop true
+    when
+        $dedalo : Personaje( nombre == "Dedalo", estado_libertad == false, estado_vida == true )
+        TieneObjeto( personaje == $dedalo, objeto.nombre == "Alas de Dedalo" )
+    then
+        modify( $dedalo ) { estado_libertad = true }
+        
+        Escapar accion = new Escapar();
+        accion.setSujeto($dedalo);
+        insert( accion );
+        
+        salida.add( "Dedalo utiliza sus alas para escapar del laberinto con exito." );
+end
+
+                 

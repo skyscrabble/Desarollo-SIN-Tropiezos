@@ -1,2 +1,4 @@
-Si, Heracles puede CAPACIDAD Vuelo debido a que:
-Mision cumplida: Heracles obtiene la capacidad Vuelo
+No, Heracles puede CAPACIDAD Vuelo debido a que:
+Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro.
+Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar.
+Dedalo utiliza sus alas para escapar del laberinto con exito.
