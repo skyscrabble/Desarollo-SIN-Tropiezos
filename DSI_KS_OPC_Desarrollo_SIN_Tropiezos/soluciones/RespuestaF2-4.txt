@@ -1,10 +1,11 @@
-No, Perseo puede LIBERAR Andromeda debido a que:
+No, Perseo no puede liberar a Andromeda con las condiciones iniciales
+Sucesos que si se producen:
 Perseo obtiene Yelmo de Hades debido a tener el favor de Hades.
 Perseo obtiene Brida de Oro debido a tener el favor de Hefesto.
 Perseo obtiene Hoz de Acero debido a tener el favor de Hermes.
 Perseo obtiene Escudo de Bronce debido a tener el favor de Atenea.
 Poseidon, enojado con Casiopea, envia al monstruo Ceto a apresar a Andromeda.
-Teseo se adentra en el laberinto, derrota al Minotauro y obtiene la Cabeza de Minotauro.
-Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro.
-Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar.
-Dedalo utiliza sus alas para escapar del laberinto con exito.
+Perseo localiza a las Grayas debido a tener el favor de Hermes y Atenea.
+Dedalo fabrica las Alas de Dedalo y las Alas de Icaro con Cera de Abejas y Plumas de Aves.
+Icaro intenta escapar volando pero se acerca demasiado al sol y muere; las Alas de Icaro quedan donde cae.
+Dedalo utiliza sus alas para escapar del laberinto.

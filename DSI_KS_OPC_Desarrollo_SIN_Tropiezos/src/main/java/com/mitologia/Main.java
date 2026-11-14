@@ -97,14 +97,30 @@ public class Main {
             nombreObjetivo = mision.objetivoCapacidad.nombre;
         }
 
-        String resultado = (mision.alcanzada ? "Si, " : "No, ") + 
-                           (mision.sujeto != null ? mision.sujeto.nombre : "El heroe") + 
-                           " puede " + mision.tipo + 
-                           (!nombreObjetivo.isEmpty() ? " " + nombreObjetivo : "") + 
-                           " debido a que:";
-        lineas.add(resultado);
+        String verbo;
+        switch (mision.tipo) {
+            case MATAR:     verbo = "matar a"; break;
+            case APRESAR:   verbo = "apresar a"; break;
+            case LIBERAR:   verbo = "liberar a"; break;
+            case OBJETO:    verbo = "obtener"; break;
+            case CAPACIDAD: verbo = "obtener la capacidad"; break;
+            default:        verbo = "cumplir la mision"; break;
+        }
 
-        lineas.addAll(salidaRelato);
+        String sujeto = mision.sujeto != null ? mision.sujeto.nombre : "El heroe";
+        String pregunta = sujeto + (mision.alcanzada ? " puede " : " no puede ") + verbo
+                + (nombreObjetivo.isEmpty() ? "" : " " + nombreObjetivo);
+
+        if (mision.alcanzada) {
+            lineas.add("Si, " + pregunta + " debido a que:");
+            lineas.addAll(salidaRelato);
+        } else {
+            lineas.add("No, " + pregunta + " con las condiciones iniciales");
+            if (!salidaRelato.isEmpty()) {
+                lineas.add("Sucesos que si se producen:");
+                lineas.addAll(salidaRelato);
+            }
+        }
 
         Files.write(destino, lineas, StandardCharsets.UTF_8);
 

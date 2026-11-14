@@ -1,4 +1,5 @@
-No, Heracles puede CAPACIDAD Vuelo debido a que:
-Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro.
-Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar.
-Dedalo utiliza sus alas para escapar del laberinto con exito.
+No, Heracles no puede obtener la capacidad Vuelo con las condiciones iniciales
+Sucesos que si se producen:
+Dedalo fabrica las Alas de Dedalo y las Alas de Icaro con Cera de Abejas y Plumas de Aves.
+Icaro intenta escapar volando pero se acerca demasiado al sol y muere; las Alas de Icaro quedan donde cae.
+Dedalo utiliza sus alas para escapar del laberinto.

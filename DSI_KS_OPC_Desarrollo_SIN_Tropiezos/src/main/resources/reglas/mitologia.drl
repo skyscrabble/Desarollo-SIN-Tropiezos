@@ -160,41 +160,89 @@ rule "Poseidon envia a Ceto a apresar a Andromeda"
         salida.add( "Poseidon, enojado con Casiopea, envia al monstruo Ceto a apresar a Andromeda." );
 end
 
-rule "Un heroe obtiene el Ojo de las Grayas"
+rule "Un heroe localiza a las Grayas"
+    no-loop true
     when
-        $heroe : Personaje( estado_libertad == true )
-        $m : Mision( sujeto == $heroe, alcanzada == false )
-        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Invisibilidad" )
-        $grayas : Personaje( nombre == "Grayas" )
-        $t : TieneObjeto( personaje == $grayas, $ojo : objeto )
-        eval( $ojo.nombre.equals("Ojo de las Grayas") )
-        not TieneObjeto( personaje == $heroe, objeto == $ojo )
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $hermes : Dios( nombre == "Hermes" )
+        $atenea : Dios( nombre == "Atenea" )
+        TieneFavor( personaje == $heroe, dios == $hermes )
+        TieneFavor( personaje == $heroe, dios == $atenea )
+        $grayas : Criatura( nombre == "Grayas" )
+        not ( Localizar( $l : this, sujeto == $heroe )
+              and AccionDestinoPersonaje( accion == $l, destino == $grayas ) )
+    then
+        Localizar $loc = new Localizar();
+        $loc.setSujeto( $heroe );
+        insert( $loc );
+        insert( new AccionDestinoPersonaje( $loc, $grayas ) );
+        salida.add( $heroe.nombre + " localiza a las Grayas debido a tener el favor de Hermes y Atenea." );
+end
+
+rule "Un heroe roba el Ojo de las Grayas"
+    no-loop true
+    when
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $inv : Capacidad( nombre == "Invisibilidad" )
+        TieneCapacidad( personaje == $heroe, capacidad == $inv )
+        $grayas : Criatura( nombre == "Grayas" )
+        $loc : Localizar( sujeto == $heroe )
+        AccionDestinoPersonaje( accion == $loc, destino == $grayas )
+        $ojo : Objeto( nombre == "Ojo de las Grayas" )
+        $t : TieneObjeto( personaje == $grayas, objeto == $ojo )
+        not Intercambiar( sujeto == $heroe )
     then
         delete( $t );
         insert( new TieneObjeto( $heroe, $ojo ) );
-        salida.add( $heroe.nombre + ", invisible gracias al Yelmo de Hades, le arrebata el Ojo de las Grayas a las Grayas." );
+        salida.add( $heroe.nombre + " roba el Ojo de las Grayas debido a tener Invisibilidad y las Grayas localizadas." );
 end
 
-rule "Las Ninfas entregan sus objetos a un heroe"
+rule "Un heroe intercambia el ojo y localiza a las Ninfas"
     no-loop true
     when
-        $heroe : Personaje()
-        $m : Mision( sujeto == $heroe, alcanzada == false )
-        TieneObjeto( personaje.nombre == $heroe.nombre, objeto.nombre == "Ojo de las Grayas" )
-        $ninfas : Personaje( nombre == "Ninfas" )
-        $t : TieneObjeto( personaje.nombre == $ninfas.nombre, $o : objeto )
-        not TieneObjeto( personaje.nombre == $heroe.nombre, objeto.nombre == $o.nombre )
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $grayas : Criatura( nombre == "Grayas" )
+        $ninfas : Criatura( nombre == "Ninfas" )
+        $ojo : Objeto( nombre == "Ojo de las Grayas" )
+        $t : TieneObjeto( personaje == $heroe, objeto == $ojo )
+        not Intercambiar( sujeto == $heroe )
+    then
+        delete( $t );
+        insert( new TieneObjeto( $grayas, $ojo ) );
+        Intercambiar $i = new Intercambiar();
+        $i.setSujeto( $heroe );
+        insert( $i );
+        insert( new AccionDestinoPersonaje( $i, $grayas ) );
+        Localizar $loc = new Localizar();
+        $loc.setSujeto( $heroe );
+        insert( $loc );
+        insert( new AccionDestinoPersonaje( $loc, $ninfas ) );
+        salida.add( $heroe.nombre + " localiza a las Ninfas debido a intercambiar el Ojo de las Grayas con las Grayas." );
+end
+
+rule "Las Ninfas entregan sus objetos a quien las localiza"
+    no-loop true
+    when
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $ninfas : Criatura( nombre == "Ninfas" )
+        $loc : Localizar( sujeto == $heroe )
+        AccionDestinoPersonaje( accion == $loc, destino == $ninfas )
+        $t : TieneObjeto( personaje == $ninfas, $o : objeto )
     then
         delete( $t );
         insert( new TieneObjeto( $heroe, $o ) );
-        salida.add( $heroe.nombre + " utiliza el Ojo de las Grayas para localizar a las Ninfas, y estas le otorgan " + $o.nombre + "." );
+        salida.add( $heroe.nombre + " obtiene " + $o.nombre + " debido a tener a las Ninfas localizadas." );
 end
 
 rule "Un heroe mata a Medusa"
     no-loop true
     when
-        $heroe : Personaje( estado_libertad == true )
-        $m : Mision( sujeto == $heroe, alcanzada == false )
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
         $medusa : Personaje( nombre == "Medusa", estado_vida == true )
         TieneCapacidad( personaje == $heroe, capacidad.nombre == "Vuelo" )
         TieneCapacidad( personaje == $heroe, capacidad.nombre == "Invisibilidad" )
@@ -202,52 +250,72 @@ rule "Un heroe mata a Medusa"
         TieneObjeto( personaje == $heroe, objeto.nombre == "Hoz de Acero" )
         TieneObjeto( personaje == $heroe, objeto.nombre == "Zurron Magico" )
     then
-        modify( $medusa ) { estado_vida = false }
+        modify( $medusa ) { setEstado_vida( false ) }
         Objeto cabeza = new Objeto( "Cabeza de Medusa" );
         insert( cabeza );
         insert( new TieneObjeto( $heroe, cabeza ) );
         salida.add( $heroe.nombre + " contempla a Medusa a traves del reflejo del Escudo de Bronce, la decapita con la Hoz de Acero y guarda la Cabeza de Medusa en el Zurron Magico." );
 end
 
-rule "Un heroe petrifica a Ceto y libera a Andromeda"
+rule "Un heroe mata a Ceto"
     no-loop true
     when
-        $m : Mision( tipo == Mision.Tipo.LIBERAR, $heroe : sujeto, 
-                     objetivoPersonaje.nombre == "Andromeda", alcanzada == false )
-        Personaje( this == $heroe, estado_libertad == true )
-        $andromeda : Personaje( nombre == "Andromeda", estado_libertad == false )
-        TieneObjeto( personaje == $heroe, objeto.nombre == "Cabeza de Medusa" )
-        TieneCapacidad( personaje == $heroe, capacidad.nombre == "Vuelo" )
-        $ceto : Personaje( nombre == "Ceto" )
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $ceto : Criatura( nombre == "Ceto", estado_vida == true )
+        Apresar( sujeto == $ceto )
+        $vuelo : Capacidad( nombre == "Vuelo" )
+        $pet : Capacidad( nombre == "Petrificar" )
+        TieneCapacidad( personaje == $heroe, capacidad == $vuelo )
+        TieneCapacidad( personaje == $heroe, capacidad == $pet )
     then
-        modify( $ceto ) { estado_vida = false }
-        modify( $andromeda ) { estado_libertad = true }
-        modify( $m ) { setAlcanzada( true ) }
-        salida.add( $heroe.nombre + " vuela hasta el lugar donde esta apresada Andromeda, muestra la Cabeza de Medusa a Ceto petrificandolo, y libera a Andromeda." );
+        modify( $ceto ) { setEstado_vida( false ) }
+        Matar $m = new Matar();
+        $m.setSujeto( $heroe );
+        insert( $m );
+        insert( new AccionDestinoPersonaje( $m, $ceto ) );
+        salida.add( $heroe.nombre + " mata a Ceto debido a tener la capacidad Petrificar." );
 end
 
+rule "Matar al captor libera a su victima"
+    no-loop true
+    when
+        $m : Matar( $h : sujeto )
+        AccionDestinoPersonaje( accion == $m, $captor : destino )
+        $ap : Apresar( sujeto == $captor )
+        AccionDestinoPersonaje( accion == $ap, $v : destino )
+        $victima : Personaje( this == $v, estado_libertad == false, estado_vida == true )
+    then
+        modify( $victima ) { setEstado_libertad( true ) }
+        Liberar $l = new Liberar();
+        $l.setSujeto( $h );
+        insert( $l );
+        insert( new AccionDestinoPersonaje( $l, $v ) );
+        salida.add( $h.nombre + " libera a " + $v.nombre + " debido a matar a " + $captor.nombre + "." );
+end
 
 
 rule "Un heroe mata al Minotauro"
     no-loop true
     when
-        $heroe : Personaje( estado_libertad == true )
-        $minotauro : Personaje( nombre == "Minotauro", estado_vida == true )
+        $heroe : Personaje( estado_vida == true, estado_libertad == true )
+        eval( $heroe instanceof Heroe || $heroe instanceof Semidios )
+        $minotauro : Criatura( nombre == "Minotauro", estado_vida == true )
         $loc : Localizar( sujeto == $heroe )
         AccionDestinoPersonaje( accion == $loc, destino == $minotauro )
+        $arma : Capacidad( nombre == "Arma" )
+        $fuerza : Capacidad( nombre == "Fuerza" )
+        ( TieneCapacidad( personaje == $heroe, capacidad == $arma )
+          or TieneCapacidad( personaje == $heroe, capacidad == $fuerza ) )
     then
-        modify( $minotauro ) { estado_vida = false }
-        Objeto cabezaM = new Objeto( "Cabeza de Minotauro" );
-        insert( cabezaM );
-        insert( new TieneObjeto( $heroe, cabezaM ) );
-        
-        Matar accion = new Matar();
-        accion.setSujeto($heroe);
-        insert( accion );
-        insert( new AccionDestinoPersonaje(accion, $minotauro) );
-        
-        salida.add( $heroe.nombre + " se adentra en el laberinto, derrota al Minotauro y obtiene la Cabeza de Minotauro." );
+        modify( $minotauro ) { setEstado_vida( false ) }
+        Matar $m = new Matar();
+        $m.setSujeto( $heroe );
+        insert( $m );
+        insert( new AccionDestinoPersonaje( $m, $minotauro ) );
+        salida.add( $heroe.nombre + " se adentra en el laberinto y mata al Minotauro." );
 end
+
 
 rule "Un heroe libera a un prisionero del Minotauro"
     no-loop true
@@ -271,54 +339,70 @@ end
 rule "Dedalo fabrica las Alas con Cera y Plumas"
     no-loop true
     when
-        $dedalo : Personaje( nombre == "Dedalo", estado_libertad == false )
-        $icaro : Personaje( nombre == "Icaro", estado_libertad == false )
-        TieneObjeto( personaje == $dedalo, objeto.nombre == "Cera de Abejas" )
-        TieneObjeto( personaje == $dedalo, objeto.nombre == "Plumas de Aves" )
-        not TieneObjeto( personaje == $dedalo, objeto.nombre == "Alas de Dedalo" )
-        $vuelo : Capacidad( nombre == "Vuelo" )
+        $dedalo : Personaje( nombre == "Dedalo", estado_libertad == false, estado_vida == true )
+        $icaro : Personaje( nombre == "Icaro", estado_libertad == false, estado_vida == true )
+        $cera : Objeto( nombre == "Cera de Abejas" )
+        $plumas : Objeto( nombre == "Plumas de Aves" )
+        $alasD : Objeto( nombre == "Alas de Dedalo" )
+        $alasI : Objeto( nombre == "Alas de Icaro" )
+        TieneObjeto( personaje == $dedalo, objeto == $cera )
+        TieneObjeto( personaje == $dedalo, objeto == $plumas )
+        not TieneObjeto( personaje == $dedalo, objeto == $alasD )
     then
-        Objeto alasD = new Objeto( "Alas de Dedalo" );
-        Objeto alasI = new Objeto( "Alas de Icaro" );
-        insert( alasD );
-        insert( alasI );
-        insert( new TieneObjeto( $dedalo, alasD ) );
-        insert( new TieneObjeto( $icaro, alasI ) );
-        
-        // Enlazamos las nuevas alas con la capacidad de volar
-        insert( new OtorgaCapacidad( alasD, $vuelo ) );
-        insert( new OtorgaCapacidad( alasI, $vuelo ) );
-        
-        Fabricar accion = new Fabricar();
-        accion.setSujeto($dedalo);
-        insert( accion );
-        
-        salida.add( "Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro." );
+        insert( new TieneObjeto( $dedalo, $alasD ) );
+        insert( new TieneObjeto( $icaro, $alasI ) );
+        Fabricar $f = new Fabricar();
+        $f.setSujeto( $dedalo );
+        insert( $f );
+        salida.add( "Dedalo fabrica las Alas de Dedalo y las Alas de Icaro con Cera de Abejas y Plumas de Aves." );
 end
 
 rule "Icaro muere al intentar escapar volando"
     no-loop true
     when
         $icaro : Personaje( nombre == "Icaro", estado_libertad == false, estado_vida == true )
-        TieneObjeto( personaje == $icaro, objeto.nombre == "Alas de Icaro" )
+        $alasI : Objeto( nombre == "Alas de Icaro" )
+        $t : TieneObjeto( personaje == $icaro, objeto == $alasI )
     then
-        modify( $icaro ) { estado_vida = false }
-        salida.add( "Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar." );
+        modify( $icaro ) { setEstado_vida( false ) }
+        delete( $t );
+        salida.add( "Icaro intenta escapar volando pero se acerca demasiado al sol y muere; las Alas de Icaro quedan donde cae." );
 end
 
 rule "Dedalo escapa del laberinto volando"
     no-loop true
     when
         $dedalo : Personaje( nombre == "Dedalo", estado_libertad == false, estado_vida == true )
-        TieneObjeto( personaje == $dedalo, objeto.nombre == "Alas de Dedalo" )
+        $alasD : Objeto( nombre == "Alas de Dedalo" )
+        TieneObjeto( personaje == $dedalo, objeto == $alasD )
     then
-        modify( $dedalo ) { estado_libertad = true }
-        
-        Escapar accion = new Escapar();
-        accion.setSujeto($dedalo);
-        insert( accion );
-        
-        salida.add( "Dedalo utiliza sus alas para escapar del laberinto con exito." );
+        modify( $dedalo ) { setEstado_libertad( true ) }
+        Escapar $e = new Escapar();
+        $e.setSujeto( $dedalo );
+        insert( $e );
+        salida.add( "Dedalo utiliza sus alas para escapar del laberinto." );
+end
+
+rule "Minos encierra a Dedalo e Icaro cuando muere el Minotauro"
+    no-loop true
+    when
+        $minos : Humano( nombre == "Minos" )
+        Criatura( nombre == "Minotauro", estado_vida == false )
+        $dedalo : Humano( nombre == "Dedalo", estado_libertad == true )
+        $icaro : Humano( nombre == "Icaro", estado_libertad == true )
+        not Apresar( sujeto == $minos )
+    then
+        modify( $dedalo ) { setEstado_libertad( false ) }
+        modify( $icaro ) { setEstado_libertad( false ) }
+        Apresar $a1 = new Apresar();
+        $a1.setSujeto( $minos );
+        insert( $a1 );
+        insert( new AccionDestinoPersonaje( $a1, $dedalo ) );
+        Apresar $a2 = new Apresar();
+        $a2.setSujeto( $minos );
+        insert( $a2 );
+        insert( new AccionDestinoPersonaje( $a2, $icaro ) );
+        salida.add( "Minos, enfadado por la muerte del Minotauro, encierra a Dedalo y a Icaro en el laberinto." );
 end
 
                  

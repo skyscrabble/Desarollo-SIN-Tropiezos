@@ -1,7 +1,6 @@
-Si, Ariadna puede LIBERAR Teseo debido a que:
-Ariadna se adentra en el laberinto, derrota al Minotauro y obtiene la Cabeza de Minotauro.
+Si, Ariadna puede liberar a Teseo debido a que:
 Ariadna localiza la guarida del Minotauro y libera a Teseo.
 Mision cumplida: Ariadna libera a Teseo
-Dedalo recolecta Cera de Abejas y Plumas de Aves en el laberinto y fabrica las Alas de Dedalo y las Alas de Icaro.
-Icaro intenta escapar volando pero se acerca demasiado al sol, la cera se derrite y muere cayendo al mar.
-Dedalo utiliza sus alas para escapar del laberinto con exito.
+Dedalo fabrica las Alas de Dedalo y las Alas de Icaro con Cera de Abejas y Plumas de Aves.
+Icaro intenta escapar volando pero se acerca demasiado al sol y muere; las Alas de Icaro quedan donde cae.
+Dedalo utiliza sus alas para escapar del laberinto.
